@@ -31,4 +31,14 @@ class User extends Authenticatable
 
         return uniqid(rand(10000000,99999999)) . rand(10000,99999);
     }
+
+    public static function checkSocialUser($email, $id){
+        
+        return User::where('email','=',$email)->orWhere('social_auth_id' , '=' , $id)->count();
+    }
+
+    public static function checkUserUnique($user_unique) {
+
+        return User::where('user_unique' , '=' , $user_unique)->count();
+    }
 }
