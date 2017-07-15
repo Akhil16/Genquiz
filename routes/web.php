@@ -26,13 +26,14 @@ Route::get('/login','Auth\LoginController@showLoginForm')->name('login');
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
 //Facebook Auth
-
-   Route::get('login/facebook', 'Auth\SocialAuthController@loginWithFacebook');
-
-   Route::get('login/facebook/callback','Auth\SocialAuthController@callbackFacebook');
+Route::get('login/facebook', 'Auth\SocialAuthController@loginWithFacebook');
+Route::get('login/facebook/callback','Auth\SocialAuthController@callbackFacebook');
 
 //Google Auth
+Route::get('login/google', 'Auth\SocialAuthController@loginWithGoogle');
+Route::get('login/google/callback','Auth\SocialAuthController@callbackGoogle');
 
-   Route::get('login/google', 'Auth\SocialAuthController@loginWithGoogle');
+Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
 
-   Route::get('login/google/callback','Auth\SocialAuthController@callbackGoogle');
+   Route::get('/', 'ProfileController@home');
+});
