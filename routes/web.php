@@ -36,4 +36,6 @@ Route::get('login/google/callback','Auth\SocialAuthController@callbackGoogle');
 Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
 
    Route::get('/', 'ProfileController@home');
+   Route::get('/add-quiz', 'ProfileController@addQuiz');
+   Route::post('/save-quiz', 'ProfileController@saveQuiz');
 });
