@@ -27,9 +27,6 @@
 				  	<tbody>
 				  		<?php $count = 1; ?>
 				  		@foreach($questions as $q)
-				  			<?php
-				  				$answer_arr = explode("," , $q->answer);
-				  			?>
 						    <tr>
 						    	<th scope="row" class="col-md-1">{{ $count++ }}</th>
 						    	<td class="col-md-7">{{ ucwords($q->question) }}</td>
