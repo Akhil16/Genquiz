@@ -23,7 +23,7 @@ class ProfileController extends Controller
     public function addQuiz(){
     	
     	$quiz = Quiz::where('user_unique' , '=' , Auth::user()->user_unique)
-    			->select(['title' , 'description' , 'num_ques'])
+    			->select(['title' , 'description' , 'num_ques' , 'quiz_unique'])
     			->paginate(20);
 
     	return view('profile.addquiz' , compact('quiz'));

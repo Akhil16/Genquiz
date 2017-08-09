@@ -22,7 +22,7 @@
 						    	<td class="col-md-2">{{ ucwords($q->title) }}</td>
 						      	<td class="col-md-5">{{ $q->description }}</td>
 						      	<td class="col-md-2">{{ $q->num_ques }}</td>
-						      	<td class="col-md-2"><a class="btn btn-info">Add Question</a></td>
+						      	<td class="col-md-2"><a class="btn btn-info" href="{{ url('profile/add-question/' . $q->quiz_unique) }}">Add Question</a></td>
 						    </tr>
 						@endforeach
 					</tbody>
@@ -51,7 +51,7 @@
 				@endif
 
 				<div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-				    <label>Quiz Title</label>
+				    <label>Quiz Description</label>
 				    <textarea class="form-control" name="description">
 				    </textarea>
 				</div>

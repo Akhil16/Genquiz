@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 //User Register
 Route::get('/register','Auth\RegisterController@getRegisterForm')->name('register');
 
@@ -38,4 +34,6 @@ Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
    Route::get('/', 'ProfileController@home');
    Route::get('/add-quiz', 'ProfileController@addQuiz');
    Route::post('/save-quiz', 'ProfileController@saveQuiz');
+   Route::get('/add-question/{quiz_unique}', 'QuestionController@addQuestion');
+   Route::post('/save-question', 'QuestionController@saveQuestion');
 });
