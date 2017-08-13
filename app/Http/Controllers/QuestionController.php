@@ -24,7 +24,7 @@ class QuestionController extends Controller
     			->first();
 
     	$questions = Question::where('quiz_unique' , '=' , $quiz_unique)
-    			->orderBy('question_number' , 'desc')
+    			->orderBy('created_at' , 'asc')
     			->get(['question' , 'answer' , 'question_type']);
 
     	return view('profile.addquestion' , compact('quiz' , 'questions'));
@@ -54,12 +54,10 @@ class QuestionController extends Controller
         } else {
         	
         	$answer_str = "";
-        	$option_val = 97;
 
         	$question = new Question;
         	$question->question_unique = $question->getQuestionUnique();
         	$question->quiz_unique = $request->quiz_unique;
-        	$question->question_number = $request->question_number;
         	$question->question_type = $request->question_type;
         	$question->question = $request->question;
         	
@@ -71,9 +69,8 @@ class QuestionController extends Controller
 	        		$option = new Option;
 	        		$option->option_unique = $option->getOptionUnique();
 	        		$option->question_unique = $question->question_unique;
-	        		$option->option_number = chr($option_val++);
 	        		$option->option_content = $value;
-	        		if(in_array($option->option_number, $answer_arr)){
+	        		if(in_array(chr($option_val++), $answer_arr)){
 	        			$answer_str .= $option->option_unique . ",";
 	        		}
 	        		$option->save();
@@ -83,17 +80,17 @@ class QuestionController extends Controller
 	        	$option = new Option;
         		$option->option_unique = $option->getOptionUnique();
         		$option->question_unique = $question->question_unique;
-        		$option->option_number = chr($option_val++);
-        		$option->option_content = $request->option_content;
-        		
-        		$answer_str = $request->answer;
+        		$option->option_content = $request->answer;
+        		$option->save();
+
+        		$answer_str = $option->option_unique;
 	        }
 
         	$question->answer = $answer_str;
         	$question->save();
 
         	Quiz::where('quiz_unique' , '=' , $request->quiz_unique)
-        			->update(['num_ques' => $request->question_number]);
+        			->update(['num_ques' => $request->num_ques]);
 
             return back()->with('message', 'Question added successfully..');
         }
