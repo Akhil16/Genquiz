@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('/' , 'HomeController@index');
+Route::get('home' , 'HomeController@index');
+
 //User Register
 Route::get('/register','Auth\RegisterController@getRegisterForm')->name('register');
 
