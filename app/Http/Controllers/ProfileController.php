@@ -32,7 +32,7 @@ class ProfileController extends Controller
     public function saveQuiz(Request $request){
 
     	$validation = array(
-            'title' => 'required|max:40|unique:quizzes',
+            'title' => 'required|min:3|max:40|unique:quizzes',
             'description' => 'required'
         );
 
@@ -48,7 +48,7 @@ class ProfileController extends Controller
             $quiz->user_unique = $request->user_unique;
             $quiz->title = $request->title;
             $quiz->description = $request->description;
-            $quiz->quiz_slug = str_replace(" ", "-", $request->title);
+            $quiz->quiz_slug = str_replace(" ", "-", strtolower($request->title));
             $quiz->save();
 
             return back()->with('message', 'Quizzz added successfully..');
@@ -66,14 +66,14 @@ class ProfileController extends Controller
     public function updateQuiz(Request $request){
 
         $validation = array();
-        if($request->title && $request->old_title == $request->title) {
+        if($request->title && strtolower($request->old_title) == strtolower($request->title)) {
             $validation = array(
-                'title' => 'required|max:40',
+                'title' => 'required|min:3|max:40',
                 'description' => 'required'
             );
         } else {
             $validation = array(
-                'title' => 'required|max:40|unique:quizzes',
+                'title' => 'required|min:3|max:40|unique:quizzes',
                 'description' => 'required'
             );
         }
@@ -89,7 +89,7 @@ class ProfileController extends Controller
             $quiz_arr = array(
                 'title' => $request->title,
                 'description' => $request->description,
-                'quiz_slug' => str_replace(" ", "-", $request->title)
+                'quiz_slug' => str_replace(" ", "-", strtolower($request->title))
             );
 
             Quiz::where('quiz_unique' , '=' , $request->quiz_unique)
