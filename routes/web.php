@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/' , 'HomeController@index');
+Route::get('home' , 'HomeController@index');
 
 //User Register
 Route::get('/register','Auth\RegisterController@getRegisterForm')->name('register');
@@ -36,4 +35,12 @@ Route::get('login/google/callback','Auth\SocialAuthController@callbackGoogle');
 Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
 
    Route::get('/', 'ProfileController@home');
+   Route::get('/add-quiz', 'ProfileController@addQuiz');
+   Route::post('/save-quiz', 'ProfileController@saveQuiz');
+   Route::get('/edit-quiz/{quiz_unique}', 'ProfileController@editQuiz');
+   Route::post('/update-quiz', 'ProfileController@updateQuiz');
+   Route::get('/add-question/{quiz_unique}', 'QuestionController@addQuestion');
+   Route::post('/save-question', 'QuestionController@saveQuestion');
+   Route::get('/edit-question/{quiz_unique}/{question_unique}', 'QuestionController@editQuestion');
+   Route::post('/update-question', 'QuestionController@updateQuestion');
 });
