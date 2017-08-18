@@ -51,4 +51,4 @@ Route::get('quiz/play/{quiz_slug}' , 'QuizController@getPlayQuiz');
 Route::post('quiz/play/{quiz_slug}' , 'QuizController@postPlayQuiz');
 
 //Show Quiz Results
-Route::get('result/quiz/{quiz_slug}/player/{play_unique}' , 'QuizController@showResult');
+Route::get('result/quiz/{quiz_slug}/play/{play_unique}' , 'QuizController@showResult');

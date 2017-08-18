@@ -91,7 +91,7 @@ class QuizController extends Controller
             QuizResult::where('play_unique' , '=' , $play_unique)
                         ->update($answer_arr);
             
-            return redirect('result/quiz/' . $quiz_slug . '/player/' . $play_unique);
+            return redirect('result/quiz/' . $quiz_slug . '/play/' . $play_unique);
         }
 
         if($play_unique == null) {

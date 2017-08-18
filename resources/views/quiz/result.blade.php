@@ -43,7 +43,7 @@
 		</div>
 		<div class="well">
 			<div class="row">
-				<div class="col-md-9 col-md-offset-1 col-sm-12 col-xs-12" id="website-url">{{ url('result/quiz/' . $quiz->quiz_slug . '/player/' . $result->play_unique) }}</div>
+				<div class="col-md-9 col-md-offset-1 col-sm-12 col-xs-12" id="website-url">{{ url('result/quiz/' . $quiz->quiz_slug . '/play/' . $result->play_unique) }}</div>
 				<div class="col-md-2 col-sm-12 col-xs-12">
 					<button class="btn btn-primary pull-right" id="copy-url-btn">Copy to Clipboard</button>
 				</div>
