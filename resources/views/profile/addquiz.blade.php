@@ -40,7 +40,7 @@
 				</div>
 			@endif
 			<h1>Add New Quiz</h1>
-			<form action="{{ url('profile/save-quiz') }}" method="post">
+			<form action="{{ url('profile/save-quiz') }}" method="post" enctype="multipart/form-data">
 				<div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
 				    <label>Quiz Title</label>
 				    <input type="text" class="form-control" name="title" maxlength="40">
@@ -61,6 +61,17 @@
 				@if ($errors->has('description'))
 				    <div class="alert alert-danger">
 				        <strong>{{ $errors->first('description') }}</strong>
+				    </div>
+				@endif
+
+				<div class="form-group {{ $errors->has('quiz_cover') ? 'has-error' : '' }}">
+				    <label>Quiz Cover (optional)</label>
+				    <input type="file" name="quiz_cover" class="form-control">
+				</div>
+
+				@if ($errors->has('quiz_cover'))
+				    <div class="alert alert-danger">
+				        <strong>{{ $errors->first('quiz_cover') }}</strong>
 				    </div>
 				@endif
 

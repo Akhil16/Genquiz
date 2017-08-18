@@ -33,7 +33,8 @@ class ProfileController extends Controller
 
     	$validation = array(
             'title' => 'required|min:3|max:40|unique:quizzes',
-            'description' => 'required'
+            'description' => 'required',
+            'quiz_cover' => 'mimes:jpeg,bmp,png,jpg'
         );
 
         $vl = Validator::make($request->all(), $validation);
@@ -43,12 +44,23 @@ class ProfileController extends Controller
                 ->withInput()
                 ->withErrors($vl);
         } else {
+
             $quiz = new Quiz;
             $quiz->quiz_unique = $quiz->getQuizUnique();
             $quiz->user_unique = $request->user_unique;
             $quiz->title = $request->title;
             $quiz->description = $request->description;
             $quiz->quiz_slug = str_replace(" ", "-", strtolower($request->title));
+            if($request->quiz_cover) {
+                $file = request()->file("quiz_cover");
+                $ext = $file->getClientOriginalExtension();
+                $filename_cover = $quiz->quiz_slug . "." . $ext;
+                $file->move(public_path("uploads/quizcover") , $filename_cover);
+
+                $quiz->quiz_cover = $filename_cover;
+            } else {
+                $quiz->quiz_cover = "quiz-default-cover.png";
+            }
             $quiz->save();
 
             return back()->with('message', 'Quizzz added successfully..');
@@ -64,17 +76,19 @@ class ProfileController extends Controller
     }
 
     public function updateQuiz(Request $request){
-
+        
         $validation = array();
         if($request->title && strtolower($request->old_title) == strtolower($request->title)) {
             $validation = array(
                 'title' => 'required|min:3|max:40',
-                'description' => 'required'
+                'description' => 'required',
+                'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         } else {
             $validation = array(
                 'title' => 'required|min:3|max:40|unique:quizzes',
-                'description' => 'required'
+                'description' => 'required',
+                'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         }
 
@@ -85,12 +99,29 @@ class ProfileController extends Controller
                 ->withInput()
                 ->withErrors($vl);
         } else {
-            
-            $quiz_arr = array(
-                'title' => $request->title,
-                'description' => $request->description,
-                'quiz_slug' => str_replace(" ", "-", strtolower($request->title))
-            );
+
+            $quiz_arr = array();
+
+            if($request->quiz_cover) {
+
+                $file = request()->file("quiz_cover");
+                $ext = $file->getClientOriginalExtension();
+                $filename_cover = str_replace(" ", "-", strtolower($request->title)) . "." . $ext;
+                $file->move(public_path("uploads/quizcover") , $filename_cover);
+
+                $quiz_arr = array(
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'quiz_slug' => str_replace(" ", "-", strtolower($request->title)),
+                    'quiz_cover' => $filename_cover
+                );
+            } else {
+                $quiz_arr = array(
+                    'title' => $request->title,
+                    'description' => $request->description,
+                    'quiz_slug' => str_replace(" ", "-", strtolower($request->title))
+                );
+            }
 
             Quiz::where('quiz_unique' , '=' , $request->quiz_unique)
                     ->update($quiz_arr);
