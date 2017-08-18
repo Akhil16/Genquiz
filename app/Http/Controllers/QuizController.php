@@ -155,4 +155,18 @@ class QuizController extends Controller
         
         return view('quiz.playquiz' , compact('quiz' , 'question' , 'options' , 'endtime' , 'play_unique'));
     }
+
+    public function showResult($quiz_slug , $play_unique) {
+
+        $quiz = Quiz::where('quiz_slug' , '=' , $quiz_slug)
+                ->firstOrFail();
+
+        $result = QuizResult::where('quiz_unique' , '=' , $quiz->quiz_unique)
+                    ->where('player_user_unique' , '=' , Auth::user()->user_unique)
+                    ->where('play_unique' , '=' , $play_unique)
+                    ->where('status' , '=' , 1)
+                    ->firstOrFail();
+
+        return view('quiz.result' , compact('quiz' , 'result'));
+    }
 }

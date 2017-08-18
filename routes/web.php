@@ -45,6 +45,10 @@ Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
    Route::post('/update-question', 'QuestionController@updateQuestion');
 });
 
+//Play Quiz
 Route::get('quiz/{quiz_slug}' , 'QuizController@home');
 Route::get('quiz/play/{quiz_slug}' , 'QuizController@getPlayQuiz');
 Route::post('quiz/play/{quiz_slug}' , 'QuizController@postPlayQuiz');
+
+//Show Quiz Results
+Route::get('result/quiz/{quiz_slug}/player/{play_unique}' , 'QuizController@showResult');
