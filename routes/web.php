@@ -22,7 +22,7 @@ Route::post('/register','Auth\RegisterController@register')->name('register');
 //User Login
 Route::post('/login','Auth\LoginController@login')->name('login');
 Route::get('/login','Auth\LoginController@showLoginForm')->name('login');
-Route::get('/logout','Auth\LoginController@logout')->name('logout');
+Route::post('/logout','Auth\LoginController@logout')->name('logout');
 
 //Facebook Auth
 Route::get('login/facebook', 'Auth\SocialAuthController@loginWithFacebook');
@@ -47,8 +47,7 @@ Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
 
 //Play Quiz
 Route::get('quiz/{quiz_slug}' , 'QuizController@home');
-Route::get('quiz/play/{quiz_slug}' , 'QuizController@getPlayQuiz');
-Route::post('quiz/play/{quiz_slug}' , 'QuizController@postPlayQuiz');
+Route::post('quiz/play/{quiz_slug}' , 'QuizController@playQuiz');
 
 //Show Quiz Results
 Route::get('result/quiz/{quiz_slug}/play/{play_unique}' , 'QuizController@showResult');

@@ -33,7 +33,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-2 col-md-offset-1  col-sm-12 col-xs-12">
-					{{ ucwords($result->player->name) }} Scored {{ $result->score }}%
+					{{ $result->player_user_unique ? ucwords($result->player->name) : "You" }} Scored {{ $result->score }}%
 				</div>
 				<div class="col-md-9  col-sm-12 col-xs-12">
 					

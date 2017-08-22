@@ -14,38 +14,29 @@ use App\QuizResult;
 
 class QuizController extends Controller
 {
-    public function __construct(){
-
-        $this->middleware('auth');
-    }
+    private $quiz_time = 30*60;
 
     public function home($quiz_slug) {
 
         $quiz = Quiz::where('quiz_slug' , '=' , $quiz_slug)
                 ->firstOrFail();
 
-        $result = QuizResult::where('quiz_unique' , '=' , $quiz->quiz_unique)
+        if(Auth::check()) {
+            $result = QuizResult::where('quiz_unique' , '=' , $quiz->quiz_unique)
                     ->where('player_user_unique' , '=' , Auth::user()->user_unique)
                     ->where('status' , '=' , 0)
-                    ->where('created_at' , '>' , date("Y-m-d H:i:s", time() - (60 * 60)))
+                    ->where('created_at' , '>' , date("Y-m-d H:i:s", time() - $this->quiz_time))
                     ->orderBy('id' , 'desc')
                     ->first();
-
-        return view('quiz.home' , compact('quiz' , 'result'));
-    }
-
-    public function getPlayQuiz($quiz_slug) {
-
-        if(Quiz::where('quiz_slug' , '=' , $quiz_slug)->count() > 0) {
-            return redirect('quiz/' . $quiz_slug);
         } else {
-            abort(404);
+            $result = null;
         }
+        $quiztime = $this->quiz_time;
+        return view('quiz.home' , compact('quiz' , 'result' , 'quiztime'));
     }
 
-    public function postPlayQuiz($quiz_slug , Request $request) {
-
-        // dd($request->all());
+    public function playQuiz($quiz_slug , Request $request) {
+        
         $quiz_unique = $request->quiz_unique;
         $endtime = $request->endtime;
         $play_unique = $request->play_unique;
@@ -59,19 +50,27 @@ class QuizController extends Controller
         }
         $answer_arr = array();
 
-        $resultset = QuizResult::where('quiz_unique' , '=' , $quiz_unique)
+        if(Auth::check()) {
+            $resultset = QuizResult::where('quiz_unique' , '=' , $quiz_unique)
                     ->where('player_user_unique' , '=' , Auth::user()->user_unique)
                     ->where(function($query) use ($play_unique){
                             $query->where('play_unique' , '=' , $play_unique)
-                                ->orWhere('created_at' , '>' , date("Y-m-d H:i:s", time() - (60 * 60)));
+                                ->orWhere('created_at' , '>' , date("Y-m-d H:i:s", time() - $this->quiz_time));
                     })
                     ->where('status' , '=' , 0)
                     ->get(['status' , 'play_unique' , 'score' , 'created_at']);
-        
+        } else {
+
+            $resultset = QuizResult::where('quiz_unique' , '=' , $quiz_unique)
+                    ->where('play_unique' , '=' , $play_unique)
+                    ->where('status' , '=' , 0)
+                    ->get(['status' , 'play_unique' , 'score' , 'created_at']);
+        }
+                
         $result = $resultset->where('play_unique' , '=' , $play_unique)->first();
 
         if($play_unique !== null && (($request->question_number == $quiz->num_ques || 
-            $result->where('created_at' , '>' , date("Y-m-d H:i:s", time() - (60 * 60)))->count() == 0))) {
+            $result->where('created_at' , '>' , date("Y-m-d H:i:s", time() - $this->quiz_time))->count() == 0))) {
             
             if($request->answer == "positive") {
                 $answer_arr = array(
@@ -91,27 +90,26 @@ class QuizController extends Controller
             QuizResult::where('play_unique' , '=' , $play_unique)
                         ->update($answer_arr);
             
-            return redirect('result/quiz/' . $quiz_slug . '/play/' . $play_unique);
+            return response()->json(['quiz_slug' => $quiz_slug , 'play_unique' => $play_unique , 'quiz_status' => 'completed']);
         }
 
         if($play_unique == null) {
 
-            if($resultset->where('status' , '=' , 0)->where('created_at' , '>' , date("Y-m-d H:i:s", time() - (60 * 60)))->count() > 0) {
-                $quizresult = $resultset->where('created_at' , '>' , date("Y-m-d H:i:s", time() -           (60 * 60)))
+            if($resultset !== null && Auth::check() && $resultset->where('created_at' , '>' , date("Y-m-d H:i:s", time() - $this->quiz_time))->count() > 0) {
+                $quizresult = $resultset->where('created_at' , '>' , date("Y-m-d H:i:s", time() -           $this->quiz_time))
                                 ->sortByDesc('created_at')
                                 ->first();
-                $endtime = strtotime($quizresult->created_at) + (60 * 60);
+                $endtime = date("Y-m-d H:i:s" , (strtotime($quizresult->created_at) + $this->quiz_time));
 
             } else {
                 $quizresult = new QuizResult;
                 $quizresult->play_unique = $quizresult->getResultUnique();
                 $quizresult->quiz_unique = $quiz->quiz_unique;
                 $quizresult->player_user_unique = $request->player_user_unique;
-                $quizresult->created_user_unique = $request->created_user_unique;
                 $quizresult->completed_question = 0;
                 $quizresult->save();
 
-                $endtime = time() + (60 * 60);
+                $endtime = date("Y-m-d H:i:s" , (time() + $this->quiz_time));
             }
 
             $play_unique = $quizresult->play_unique;
@@ -126,7 +124,7 @@ class QuizController extends Controller
 
         } else if(sizeof($result) > 0) {
             
-            if($request->continue_question !== true) {
+            if($request->continue_quiz !== true) {
                 if($request->answer == "positive") {
                     $answer_arr = array(
                         'completed_question' => $request->question_number,
@@ -153,7 +151,14 @@ class QuizController extends Controller
             return redirect('/');
         }
         
-        return view('quiz.playquiz' , compact('quiz' , 'question' , 'options' , 'endtime' , 'play_unique'));
+        $data = array('quiz' => $quiz,
+            'question' => $question,
+            'options' => $options,
+            'endtime' => $endtime,
+            'play_unique' => $play_unique,
+            'present_time' => date("Y-m-d H:i:s")
+        );
+        return response()->json($data);
     }
 
     public function showResult($quiz_slug , $play_unique) {
@@ -162,7 +167,6 @@ class QuizController extends Controller
                 ->firstOrFail();
 
         $result = QuizResult::where('quiz_unique' , '=' , $quiz->quiz_unique)
-                    ->where('player_user_unique' , '=' , Auth::user()->user_unique)
                     ->where('play_unique' , '=' , $play_unique)
                     ->where('status' , '=' , 1)
                     ->firstOrFail();
