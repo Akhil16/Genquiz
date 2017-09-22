@@ -12,11 +12,12 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
     @yield('style')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-custom">
             <div class="container">
                 <div class="navbar-header">
 
@@ -30,7 +31,8 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <!-- {{ config('app.name', 'Laravel') }} -->
+                        <img src="{{ url('image/Genquiz.png') }}" alt="Genquiz" width="50%" style="margin-top:-10px;">
                     </a>
                 </div>
 
