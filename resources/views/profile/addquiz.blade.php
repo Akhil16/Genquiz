@@ -1,9 +1,9 @@
-@extends('profile')
+@extends('layouts.app')
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
 		@if(isset($quiz))
-			<div class="well table-responsive">
+			<div class="brick col-md-12 table-responsive">
 				<table class="table table-striped">
 					<thead>
 					    <tr>
@@ -33,7 +33,7 @@
 				<div class="text-center">{{ $quiz->links() }}</div>
 			</div>
 		@endif
-		<div class="well">
+		<div class="brick col-md-12">
 			@if(session()->has('message'))
 				<div class="alert alert-success">
 				    <strong>{{ session()->get('message') }}</strong>

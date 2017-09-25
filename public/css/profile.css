@@ -11,12 +11,29 @@ Premium: http://www.gridgum.com
 
 /* BASIC THEME CONFIGURATION */
 body {
-    color: #797979;
-	background: #f2f2f2;
+    
     font-family: 'Ruda', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
     font-size:13px;
+}
+
+.padding_25{
+    padding: 25px;
+}
+.brick{
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background-color: rgba(202,230,238, 0.9);
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    box-shadow: 5px 5px 10px 0px #ccc;
+
 }
 
 ul li {
@@ -90,74 +107,37 @@ a, a:hover, a:focus {
 }
 /*Theme Buttons*/
 
-.btn-theme {
-  color: #fff;
-  background-color: #68dff0;
-  border-color: #48bcb4;
+.btn-custom-one {
+background-color: #hhh;
+color: #fff;
+
+.btn-block{
+    margin: auto;
 }
-.btn-theme:hover,
-.btn-theme:focus,
-.btn-theme:active,
-.btn-theme.active,
-.open .dropdown-toggle.btn-theme {
-  color: #fff;
-  background-color: #48bcb4;
-  border-color: #48bcb4;
 }
 
-.btn-theme02 {
-  color: #fff;
-  background-color: #ac92ec;
-  border-color: #967adc;
-}
-.btn-theme02:hover,
-.btn-theme02:focus,
-.btn-theme02:active,
-.btn-theme02.active,
-.open .dropdown-toggle.btn-theme02 {
-  color: #fff;
-  background-color: #967adc;
-  border-color: #967adc;
+.btn-custom-one:hover {
+background-color: rgba(245, 8, 8, 0.81);
+border: 2px solid rgba(245, 8, 8, 0.81);
+text-decoration: none;
+color: #fff;
 }
 
-.btn-theme03 {
-  color: #fff;
-  background-color: #48cfad;
-  border-color: #37bc9b;
-}
-.btn-theme03:hover,
-.btn-theme03:focus,
-.btn-theme03:active,
-.btn-theme03.active,
-.open .dropdown-toggle.btn-theme03 {
-  color: #fff;
-  background-color: #37bc9b;
-  border-color: #37bc9b;
+.btn-custom-two {
+color: #fff;
+background-color: rgba(245, 8, 8, 0.81);
+border: 2px solid rgba(245, 8, 8, 0.81);
 }
 
-.btn-theme04 {
-  color: #fff;
-  background-color: #ed5565;
-  border-color: #da4453;
-}
-.btn-theme04:hover,
-.btn-theme04:focus,
-.btn-theme04:active,
-.btn-theme04.active,
-.open .dropdown-toggle.btn-theme04 {
-  color: #fff;
-  background-color: #da4453;
-  border-color: #da4453;
+.btn-custom-two:hover {
+border: 2px solid rgba(245, 8, 8, 0.81);
+text-decoration: none;
+color: #fff;
+background-color: #hhh;
 }
 
-.btn-clear-g {
-	color: #48bcb4;
-	background: transparent;
-	border-color: #48bcb4;
-}
-
-.btn-clear-g:hover {
-	color: white;
+.btn-block{
+    margin: auto;
 }
 
 hr {
@@ -213,18 +193,25 @@ hr {
 	background-color: #68dff0;
 }
 
-ul.top-menu > li > .logout {
-	color: #f2f2f2;
-	font-size: 12px;
-	border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border: 1px solid #64c3c2 !important;
-	padding: 5px 15px;
-	margin-right: 15px;
-	background: #68dff0;
-	margin-top: 15px;
+ul.top-menu > li > a.logout {
+    color: #f2f2f2;
+    font-size: 16px;
+    /* border-radius: 0px; */
+    -webkit-border-radius: 0px;
+    border: 1px solid rgba(245, 8, 8, 0.81) !important;
+    padding: 5px 15px;
+    margin-right: 15px;
+    background: #f06868;
+    margin-top: 15px;
+    box-shadow: 0px 5px 15px 0px dimgrey;
 }
 
+ul.top-menu > li > a.logout:hover{
+    background: #eee !important;
+    color: #000 !important;
+    /* border-radius: 0px; !important*/
+    -webkit-border-radius: 0px !important;
+}
 
 /*sidebar navigation*/
 
@@ -396,9 +383,7 @@ ul.sidebar-menu li a.active i {
 }
 
 /* MAIN CONTENT CONFIGURATION */
-#main-content {
-    margin-left: 210px;
-}
+
 
 .header, .footer {
     min-height: 60px;
@@ -412,8 +397,8 @@ ul.sidebar-menu li a.active i {
     z-index: 1002;
 }
 
-.black-bg {
-    background: #ffd777;
+.header-bg {
+    background: rgba(59,211,116, 0.99);
     border-bottom: 1px solid #c9aa5f;
 }
 

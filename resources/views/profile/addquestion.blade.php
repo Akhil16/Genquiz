@@ -1,4 +1,4 @@
-@extends('profile')
+@extends('layouts.app')
 
 @section('style')
 
@@ -9,9 +9,9 @@
 
 @section('content')
 
-	<div class="container">
+	<div class="container-fluid">
 		<h1 class="text-center">Quiz Title : {{ $quiz->title }}</h1>
-		<div class="well">
+		<div class="col-md-12 brick">
 			@if(isset($questions) && sizeof($questions) > 0)
 				<table class="table table-striped">
 					<thead>
@@ -39,7 +39,7 @@
 			@endif
 		</div>
 	
-		<div class="well">
+		<div class="col-md-12">
 			@if(session()->has('message'))
 				<div class="alert alert-success">
 				    <strong>{{ session()->get('message') }}</strong>
