@@ -1,3 +1,14 @@
+<?php
+    $title = "I scored " . $result->score . "% in quiz - " . $quiz->title . " - Can You?";
+    $description = $quiz->description;
+    $keywords = "quiz, " . $title . " " . str_replace(" ", ", ", $title);
+    $author = "Genquiz";
+    $url = "http://genquiz.tk";
+    $site_name = "genquiz.tk";
+    if($quiz->quiz_cover !== "quiz-default-cover.png") {
+    	$image_url = url('/images/' . $quiz->quiz_cover);
+    }
+?>
 @extends('layouts.app')
 
 @section('style')
@@ -32,11 +43,11 @@
 				<div class="col-xs-12">&nbsp;</div>
 			</div>
 			<div class="row">
-				<div class="col-md-2 col-md-offset-1  col-sm-12 col-xs-12">
+				<div class="col-md-5 col-md-offset-1  col-sm-12 col-xs-12">
 					{{ $result->player_user_unique ? ucwords($result->player->name) : "You" }} Scored {{ $result->score }}%
 				</div>
-				<div class="col-md-9  col-sm-12 col-xs-12">
-					
+				<div class="col-md-2 col-md-offset-4 col-sm-12 col-xs-12">
+					<a href="{{ url('/quiz/' . $quiz->quiz_slug) }}" class="btn btn-danger">Play Again</a>
 				</div>
 				<div class="col-xs-12">&nbsp;</div>
 			</div>
