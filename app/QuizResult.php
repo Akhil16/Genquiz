@@ -16,4 +16,8 @@ class QuizResult extends Model
     public function player() {
     	return $this->belongsTo(User::class , 'player_user_unique' , 'user_unique');
     }
+
+    public function quiz() {
+    	return $this->belongsTo(Quiz::class , 'quiz_unique' , 'quiz_unique');
+    }
 }

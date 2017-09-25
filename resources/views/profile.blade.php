@@ -28,7 +28,7 @@
                 <!--logo start-->
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <!-- {{ config('app.name', 'Laravel') }} -->
-                    <img src="{{ url('image/Genquiz.png') }}" alt="Genquiz" width="50%" style="margin-top:-10px;">
+                    <img src="{{ url('images/Genquiz.png') }}" alt="Genquiz" width="50%" style="margin-top:-10px;">
                 </a>
                 <!--logo end-->
                 <!-- <div class="nav notify-row" id="top_menu">
@@ -129,8 +129,8 @@
                   <!-- sidebar menu start-->
                   <ul class="sidebar-menu" id="nav-accordion">
                   
-                      <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-                      <h5 class="centered">{{ Auth::user()->username}} </h5>
+                      <p class="centered"><a href="{{ url('/profile') }}"><img src="{{ url('images/user.png') }}" class="img-circle" width="60"></a></p>
+                      <h5 class="centered">{{ Auth::user()->username }} </h5>
                         
                       <li class="mt">
                           <a  href="{{ url('/profile') }}">
@@ -174,6 +174,7 @@
                 </div><!--/ row -->
               </section><! --/wrapper -->
             </section><!-- /MAIN CONTENT -->
+    </section>
     <!-- Scripts -->
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
