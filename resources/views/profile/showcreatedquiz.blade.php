@@ -1,8 +1,8 @@
-@extends('profile')
+@extends('layouts.app')
 
 @section('content')
-	<div class="container">
-		@if(isset($quiz))
+	<div class="container-fluid">
+		@if(sizeof($quiz) > 0)
 			<div class="well table-responsive">
 				<table class="table table-striped">
 					<thead>
