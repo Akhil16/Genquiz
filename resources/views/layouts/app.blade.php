@@ -159,11 +159,9 @@
             @if($show_sidebar)
                 @include('partials.sidebar')
             @endif
-              <section class="wrapper">
+              <section @if(Auth::check()) id="main-content" @endif class="wrapper">
                 <div class="row mt">
-                    <div class="col-md-offset-2">
-                         @yield('content')
-                    </div>
+                        @yield('content')
                 </div><!--/ row -->
               </section><! --/wrapper -->
         <!-- /MAIN CONTENT -->

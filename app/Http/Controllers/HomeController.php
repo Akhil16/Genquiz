@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Quiz;
 
 class HomeController extends Controller
 {
@@ -13,6 +14,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+    	$quizzes = Quiz::where('num_ques' , '>' , 0)
+                    ->paginate(20);
+
+        return view('profile.home' , compact('quizzes'));
     }
 }

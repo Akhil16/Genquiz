@@ -18,7 +18,10 @@ class ProfileController extends Controller
 
     public function home(){
     	
-    	return view('profile.home');
+    	$quizzes = Quiz::where('num_ques' , '>' , 0)
+                    ->paginate(20);
+
+        return view('profile.home' , compact('quizzes'));
     }
 
     public function addQuiz(){
@@ -60,7 +63,7 @@ class ProfileController extends Controller
             }
             $quiz->save();
 
-            return back()->with('message', 'Quizzz added successfully..');
+            return redirect('profile/add-question/' . $quiz->quiz_unique);
         }
     }
 

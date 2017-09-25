@@ -383,8 +383,11 @@ ul.sidebar-menu li a.active i {
 }
 
 /* MAIN CONTENT CONFIGURATION */
-
-
+@media(min-width: 768px){
+    #main-content { 
+        padding-left: 225px; 
+    } 
+}
 .header, .footer {
     min-height: 60px;
     padding: 0 15px;
@@ -739,11 +742,11 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .sidebar-closed #main-content {
-    margin-left: 0px;
+    padding-left: 15px;
 }
 
 .sidebar-closed #sidebar {
-    margin-left: -180px;
+    padding-left: -210px;
 }
 
 

@@ -35,12 +35,12 @@ var Script = function () {
         function responsiveView() {
             var wSize = $(window).width();
             if (wSize <= 768) {
-                $('#container').addClass('sidebar-close');
+                $('#container').addClass('sidebar-closed');
                 $('#sidebar > ul').hide();
             }
 
             if (wSize > 768) {
-                $('#container').removeClass('sidebar-close');
+                $('#container').removeClass('sidebar-closed');
                 $('#sidebar > ul').show();
             }
         }
@@ -49,25 +49,27 @@ var Script = function () {
     });
 
     $('.fa-bars').click(function () {
-        if ($('#sidebar > ul').is(":visible") === true) {
-            $('#main-content').css({
-                'margin-left': '0px'
-            });
-            $('#sidebar').css({
-                'margin-left': '-210px'
-            });
-            $('#sidebar > ul').hide();
-            $("#container").addClass("sidebar-closed");
-        } else {
-            $('#main-content').css({
-                'margin-left': '210px'
-            });
-            $('#sidebar > ul').show();
-            $('#sidebar').css({
-                'margin-left': '0'
-            });
-            $("#container").removeClass("sidebar-closed");
-        }
+            if ($('#sidebar > ul').is(":visible") === true) {
+                $('#main-content').css({
+                    'padding-left': '15px'
+                });
+                $('#sidebar').css({
+                    'margin-left': '-210px'
+                });
+                $('#sidebar > ul').hide();
+                $("#container").addClass("sidebar-closed");
+            } else {
+                if($(window).width() > 768){   
+                    $('#main-content').css({
+                        'padding-left': '225px'
+                    });
+                    $('#sidebar').css({
+                        'margin-left': '0px'
+                    });
+                }
+                $('#sidebar > ul').show();
+                $("#container").removeClass("sidebar-closed");
+            }
     });
 
 
