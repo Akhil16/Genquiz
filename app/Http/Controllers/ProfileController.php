@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Quiz;
+use App\QuizResult;
 
 class ProfileController extends Controller
 {
@@ -21,10 +22,6 @@ class ProfileController extends Controller
     }
 
     public function addQuiz(){
-    	
-    	$quiz = Quiz::where('user_unique' , '=' , Auth::user()->user_unique)
-    			->select(['title' , 'description' , 'num_ques' , 'quiz_unique'])
-    			->paginate(20);
 
     	return view('profile.addquiz' , compact('quiz'));
     }
@@ -128,5 +125,25 @@ class ProfileController extends Controller
 
             return back()->with('message', 'Quizzz updated successfully..');
         }
+    }
+
+    public function showCreatedQuiz(){
+
+        $quiz = Quiz::where('user_unique' , '=' , Auth::user()->user_unique)
+                ->select(['title' , 'description' , 'num_ques' , 'quiz_unique'])
+                ->paginate(20);
+
+        return view('profile.showcreatedquiz' , compact('quiz'));
+    }
+
+    public function showPlayedQuiz(){
+
+        $playedquiz = QuizResult::where('player_user_unique' , '=' , Auth::user()->user_unique)
+                        ->where('status' , '=' , 1)
+                        ->selectRaw('quiz_unique , max(score) as score')
+                        ->groupBy('quiz_unique')
+                        ->paginate(40);
+        
+        return view('profile.showplayedquiz' , compact('playedquiz'));
     }
 }
