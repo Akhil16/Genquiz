@@ -58,7 +58,7 @@
                 <!--logo start-->
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <!-- {{ config('app.name', 'Laravel') }} -->
-                    <img src="{{ url('image/Genquiz.png') }}" alt="Genquiz" width="50%" style="margin-top:-10px;">
+                    <img src="{{ url('images/Genquiz.png') }}" alt="Genquiz" width="50%" style="margin-top:-10px;">
                 </a>
                 <!--logo end-->
                 <!-- <div class="nav notify-row" id="top_menu">
