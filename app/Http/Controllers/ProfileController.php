@@ -33,7 +33,7 @@ class ProfileController extends Controller
 
     	$validation = array(
             'title' => 'required|min:3|max:40|unique:quizzes',
-            'description' => 'required',
+            'description' => 'required|max:160',
             'quiz_cover' => 'mimes:jpeg,bmp,png,jpg'
         );
 
@@ -81,13 +81,13 @@ class ProfileController extends Controller
         if($request->title && strtolower($request->old_title) == strtolower($request->title)) {
             $validation = array(
                 'title' => 'required|min:3|max:40',
-                'description' => 'required',
+                'description' => 'required|max:160',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         } else {
             $validation = array(
                 'title' => 'required|min:3|max:40|unique:quizzes',
-                'description' => 'required',
+                'description' => 'required|max:160',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         }

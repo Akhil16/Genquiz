@@ -24,21 +24,21 @@ $(document).ready(function() {
 	        	answer = data.question.answer;
 	        	answer_status = "negative";
 
-	        	append_string += "</div><div class='well'><div class='row' id='" + data.question.question_unique + "'  style='display : none;'><h3><strong>Q " + data.question.question_number + "</strong> " + data.question.question + "</h3>";
+	        	append_string += "</div><div class='bg-theme03 padding_25 mt mb'><div class='row padding_25' id='" + data.question.question_unique + "'  style='display : none;'> <p id='countdown-timer' class='pull-right'></p> <h3><strong>Q " + data.question.question_number + ".</strong> " + data.question.question + "</h3>";
 	        	if(question_type == 'text') {
 	        		append_string += "<div class='form-group'><input class='form-control' type='text' id='text-answer'><input type='hidden' value='" + data.options[0].option_content + "' id='text-answer-content'></div>";
 	        	} else {
-	        		append_string += "<h5 style='color : green;'>" + question_type.toUpperCase() + "</h5><ul  class='list-group'>";
+	        		append_string += "<h5 style='color : #ff2807;'> " + question_type.toUpperCase() + " <hr></h5><ul  class='list-group'>";
 	        			$.each(data.options , function(index , opt) {
-	        				append_string += "<a href=''><li class='list-option list-group-item list-group-item-info' id='" + opt.option_unique + "'>" + opt.option_content + "</li></a><br>";
+	        				append_string += "<a href=''><li class='list-option list-group-item list-group-item' id='" + opt.option_unique + "'>" + opt.option_content + "</li></a><br>";
 	        			});
 	        		append_string += "</ul>";
 	        	}
 	        	
-	        	append_string += "<button class='btn btn-danger' id='submit-quiz-btn'>Submit</button><br><div class='alert-message'></div><form method='post' id='quiz-submit-form'><input type='hidden' name='quiz_unique' value='" + data.quiz.quiz_unique + "'><input type='hidden' name='play_unique' value='" + data.play_unique + "'><input type='hidden' name='question_number' value='" + data.question.question_number + "'><input type='hidden' name='endtime' value='" + data.endtime + "'><input type='hidden' name='answer' value='false'><p id='countdown-timer'></p></form></div>";
+	        	append_string += "<button class='btn btn-danger btn-block' id='submit-quiz-btn'>Submit</button><br><div class='alert-message'></div><form method='post' id='quiz-submit-form'><input type='hidden' name='quiz_unique' value='" + data.quiz.quiz_unique + "'><input type='hidden' name='play_unique' value='" + data.play_unique + "'><input type='hidden' name='question_number' value='" + data.question.question_number + "'><input type='hidden' name='endtime' value='" + data.endtime + "'><input type='hidden' name='answer' value='false'></form></div>";
 
 	        	$('#start-quiz-btn').remove();
-	        	$('#start-quiz-form').remove();
+	        	$('#countdown-timer').remove();
 	        	$('#quiz-well').append(append_string);
 	        	$('#' + data.question.question_unique).slideDown();
 
@@ -107,14 +107,17 @@ $(document).ready(function() {
 			if(question_type == "text") {
 				$('#text-answer').parent().addClass('has-success');
 			}
+
+			$(this).parent().find('.list-option.selected').removeClass('selected').addClass('list-group-item list-group-item-correct');
+
 		} else {
 			$(this).parent().find('.alert-message').addClass("alert alert-danger").text("Wrong Answer");
 			if(question_type !== "text") {
-				$(this).parent().find('.list-option.selected').removeClass('list-group-item-success').addClass('list-group-item-danger');
+				$(this).parent().find('.list-option.selected').addClass('list-group-item-danger');
 
 				$(this).parent().find('.list-option').each(function(){
 					if(answer.indexOf($(this).attr('id')) >= 0) {
-						$(this).removeClass('list-group-item-success list-group-item-info list-group-item-danger').addClass('list-group-item-success');
+						$(this).removeClass('list-group-item-danger').addClass('list-group-item-correct');
 					}
 				});
 			} else {
@@ -135,7 +138,7 @@ $(document).ready(function() {
 		        	setTimeout(function() {
 		        		
 		        		window.location.href = result_base_url + data.quiz_slug + "/play/" + data.play_unique;
-		        	} , 1500);
+		        	} , 500);
 
 		        } else {
 		        	append_string = "";
@@ -143,20 +146,21 @@ $(document).ready(function() {
 		        	answer = data.question.answer;
 		        	answer_status = "negative";
 
-		        	append_string += "</div><div class='well'><div class='row' id='" + data.question.question_unique + "' style='display : none;'><h3><strong>Q " + data.question.question_number + "</strong> " + data.question.question + "</h3>";
+		        	append_string += "</div><div class='bg-theme03 padding_25 mt mb'><div class='row padding_25' id='" + data.question.question_unique + "' style='display : none;'> <p id='countdown-timer' class='pull-right'></p> <h3><strong>Q " + data.question.question_number + ".</strong> " + data.question.question + "</h3>";
 		        	if(question_type == 'text') {
 		        		append_string += "<div class='form-group'><input class='form-control' type='text' id='text-answer'><input type='hidden' value='" + data.options[0].option_content + "' id='text-answer-content'></div>";
 		        	} else {
-		        		append_string += "<h5 style='color : green;'>" + question_type.toUpperCase() + "</h5><ul  class='list-group'>";
+		        		append_string += "<h5 style='color : #ff2807;'> " + question_type.toUpperCase() + " <hr></h5><ul  class='list-group'>";
 		        			$.each(data.options , function(i , opt) {
-		        				append_string += "<a href=''><li class='list-option list-group-item list-group-item-info' id='" + opt.option_unique + "'>" + opt.option_content + "</li></a><br>";
+		        				append_string += "<a href=''><li class='list-option list-group-item list-group-item' id='" + opt.option_unique + "'>" + opt.option_content + "</li></a><br>";
 		        			});
 		        		append_string += "</ul>";
 		        	}
 		        	
-		        	append_string += "<button class='btn btn-danger' id='submit-quiz-btn'>Submit</button><br><div class='alert-message'></div><form method='post' id='quiz-submit-form'><input type='hidden' name='quiz_unique' value='" + data.quiz.quiz_unique + "'><input type='hidden' name='play_unique' value='" + data.play_unique + "'><input type='hidden' name='question_number' value='" + data.question.question_number + "'><input type='hidden' name='endtime' value='" + data.endtime + "'><input type='hidden' name='answer' value='false'><p id='countdown-timer'></p></form></div>";
+		        	append_string += "<button class='btn btn-danger btn-block' id='submit-quiz-btn'>Submit</button><br><div class='alert-message'></div><form method='post' id='quiz-submit-form'><input type='hidden' name='quiz_unique' value='" + data.quiz.quiz_unique + "'><input type='hidden' name='play_unique' value='" + data.play_unique + "'><input type='hidden' name='question_number' value='" + data.question.question_number + "'><input type='hidden' name='endtime' value='" + data.endtime + "'><input type='hidden' name='answer' value='false'></form></div>";
 
 		        	$('#quiz-submit-form').remove();
+		        	$('#countdown-timer').remove();
 		        	$('#quiz-well').append(append_string);
 		        	$('#' + data.question.question_unique).slideDown();
 
@@ -171,15 +175,15 @@ $(document).ready(function() {
 
 		if(question_type == "single choice") {
 
-			$('.list-option').removeClass('list-group-item-success selected').addClass('list-group-item-info');
+			$('.list-option').removeClass('selected').addClass('list-group-item');
 
-			$(this).removeClass('list-group-item-info').addClass('list-group-item-success selected');
+			$(this).removeClass('list-group-item').addClass('selected');
 
 		} else if(question_type == "multiple choice") {
 			if($(this).hasClass('selected')) {
-				$(this).removeClass('list-group-item-success selected').addClass('list-group-item-info');
+				$(this).removeClass('selected').addClass('list-group-item');
 			} else {
-				$(this).removeClass('list-group-item-info').addClass('list-group-item-success selected');
+				$(this).removeClass('list-group-item').addClass('selected');
 			}
 		}
 	});

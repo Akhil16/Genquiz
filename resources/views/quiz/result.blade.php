@@ -17,16 +17,17 @@
 		body {
 			font-family: 'Oswald', sans-serif;
 			font-size: 18px;
+			color: #000;
 		}
 	</style>
 @endsection
 
 @section('content')
-	<div class="container">
-		<div class="well">
+	<div class="container-fluid">
+		<div class="bg-theme padding_25 mb">
 			<div class="row">
 				<div class="col-md-2 col-md-offset-1 col-sm-12 col-xs-12">
-					<strong>Quiz</strong>
+					<strong>Quiz : </strong>
 				</div>
 				<div class="col-md-9 col-sm-12 col-xs-12">
 					{{ ucwords($quiz->title) }}
@@ -35,7 +36,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-2 col-md-offset-1  col-sm-12 col-xs-12">
-					<strong>Description</strong>
+					<strong>Description : </strong>
 				</div>
 				<div class="col-md-9  col-sm-12 col-xs-12">
 					{{ $quiz->description }}
@@ -43,11 +44,11 @@
 				<div class="col-xs-12">&nbsp;</div>
 			</div>
 			<div class="row">
-				<div class="col-md-5 col-md-offset-1  col-sm-12 col-xs-12">
+				<div class="col-md-9 col-md-offset-3  col-sm-12 col-xs-12" style="font-size: 28px;">
 					{{ $result->player_user_unique ? ucwords($result->player->name) : "You" }} Scored {{ $result->score }}%
 				</div>
-				<div class="col-md-2 col-md-offset-4 col-sm-12 col-xs-12">
-					<a href="{{ url('/quiz/' . $quiz->quiz_slug) }}" class="btn btn-danger">Play Again</a>
+				<div class="mt col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+					<a href="{{ url('/quiz/' . $quiz->quiz_slug) }}" class="btn btn-block btn-danger">Play Again</a>
 				</div>
 				<div class="col-xs-12">&nbsp;</div>
 			</div>

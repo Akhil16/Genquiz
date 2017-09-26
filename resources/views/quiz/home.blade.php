@@ -36,13 +36,28 @@
 		ul > a:active {
 		    text-decoration: none;
 		}
+		.selected{
+			color: #666;
+			position: relative;
+		    display: block;
+		    padding: 10px 15px;
+		    background-color: #fff;
+	        border: 1px solid #f1a909;
+	        box-shadow: 0 0 20px 2px #f1a909;
+		}
+
+		.list-group-item-correct{
+			background-color: #47f449;
+			border: 2px solid steelblue;
+			box-shadow: 0 0 20px 2px #428bca;			
+		}
 	</style>
 @endsection
 
 @section('content')
 	<div class="container-fluid mt">
 		<div id="quiz-well">
-			<div class="brick">
+			<div class="bg-theme padding_25">
 				<div class="row">
 					<div class="col-md-2 col-md-offset-1 col-sm-6 col-xs-6 mb">
 								<img class="img-thumbnail" src="{{ URL::asset('uploads/quizcover/' . $quiz->quiz_cover) }}" alt="{{ ucwords($quiz->title) . ',' . ucwords($quiz->description) }}"  style="height: 180px; width: 120px;
@@ -69,7 +84,7 @@
 						</div>
 					</div>
 					<div class="row mt">
-						<div class="col-md-11 col-md-offset-1 col-xs-12">
+						<div class="col-md-10 col-md-offset-1 col-xs-12">
 							@if(sizeof($result) > 0) 
 				              <button class="btn btn-danger btn-block"  id="start-quiz-btn">Continue Quiz</button> 
 				            @else 

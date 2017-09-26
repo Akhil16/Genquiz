@@ -169,7 +169,7 @@
                     <hr>
                 </div>
             @endif
-              <section @if(Auth::check()) id="main-content" @endif class="padding_25">
+              <section @if(Auth::check()) id="main-content" @endif class="padding_25" style="margin-top:60px; ">
                         @yield('content')
               </section><! --/wrapper -->
         <!-- /MAIN CONTENT -->

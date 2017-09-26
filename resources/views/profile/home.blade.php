@@ -16,7 +16,7 @@
         @if(sizeof($quizzes) > 0)
 	        @foreach($quizzes as $quiz)              	              	
 				<div class="col-md-4 mb">
-					<div class="row brick">
+					<div class="row bg-theme padding_25">
 						<div class="col-md-6 col-xs-6">
 							<img class="img-thumbnail img-responsive" src="{{ URL::asset('uploads/quizcover/' . $quiz->quiz_cover) }}" alt="{{ ucwords($quiz->title) . ',' . ucwords($quiz->description) }}"  style="height: 180px; width: 120px;
 							border: 5px solid #666; box-shadow: 0 0 15px #666;">
