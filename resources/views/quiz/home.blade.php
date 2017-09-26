@@ -40,18 +40,18 @@
 @endsection
 
 @section('content')
-	<div class="container-fluid">
+	<div class="container-fluid mt">
 		<div id="quiz-well">
 			<div class="brick">
 				<div class="row">
-					<div class="col-md-2 col-md-offset-1 col-sm-6 col-xs-6">
+					<div class="col-md-2 col-md-offset-1 col-sm-6 col-xs-6 mb">
 								<img class="img-thumbnail" src="{{ URL::asset('uploads/quizcover/' . $quiz->quiz_cover) }}" alt="{{ ucwords($quiz->title) . ',' . ucwords($quiz->description) }}"  style="height: 180px; width: 120px;
 								border: 5px solid #666; box-shadow: 0 0 15px #666;">
 							</div>
 							<div  class="col-md-9 col-sm-6 col-xs-6">
 								<div class="row">
 									<div class="col-md-2 col-md-offset-1 col-sm-12 col-xs-12">
-										<strong>Title</strong>
+										<strong>Title:</strong>
 									</div>
 									<div class="col-md-9 col-sm-12 col-xs-12">
 										{{ ucwords($quiz->title) }}
@@ -60,34 +60,34 @@
 								</div>
 								<div class="row">
 									<div class="col-md-2 col-md-offset-1  col-sm-12 col-xs-12">
-										<strong>Description</strong>
+										<strong>Description:</strong>
 									</div>
 									<div class="col-md-9  col-sm-12 col-xs-12" style="text-overflow:ellipsis;overflow:hidden;height: 70px;">
 										{{ $quiz->description }}
 									</div>
 							<div class="col-xs-12">&nbsp;</div>
 						</div>
-						<div class="row">
-							<div class="col-md-11 col-md-offset-1 col-xs-12">
-								@if(sizeof($result) > 0) 
-					              <button class="btn btn-danger btn-block"  id="start-quiz-btn">Continue Quiz</button> 
-					            @else 
-					              <button class="btn btn-primary btn-block"  id="start-quiz-btn">Start Quiz</button> 
-					            @endif 
-							</div>
-							<form id="start-quiz-form" method="post">
-							@if(Auth::check())
-								<input type="hidden" name="player_user_unique" value="{{ Auth::user()->user_unique }}">
-								@if(sizeof($result) > 0) 
-					               <input type="hidden" name="endtime" value="{{ date('Y-m-d H:i:s' , (strtotime($result->created_at) + $quiztime)) }}"> 
-					               <input type="hidden" name="question_number" value="{{ $result->completed_question }}"> 
-					               <input type="hidden" name="play_unique" value="{{ $result->play_unique }}"> 
-					               <input type="hidden" name="continue_quiz" value="true"> 
-					             @endif 
-							@endif
-								<input type="hidden" name="quiz_unique" value="{{ $quiz->quiz_unique }}">
-							</form>
+					</div>
+					<div class="row mt">
+						<div class="col-md-11 col-md-offset-1 col-xs-12">
+							@if(sizeof($result) > 0) 
+				              <button class="btn btn-danger btn-block"  id="start-quiz-btn">Continue Quiz</button> 
+				            @else 
+				              <button class="btn btn-primary btn-block"  id="start-quiz-btn">Start Quiz</button> 
+				            @endif 
 						</div>
+						<form id="start-quiz-form" method="post">
+						@if(Auth::check())
+							<input type="hidden" name="player_user_unique" value="{{ Auth::user()->user_unique }}">
+							@if(sizeof($result) > 0) 
+				               <input type="hidden" name="endtime" value="{{ date('Y-m-d H:i:s' , (strtotime($result->created_at) + $quiztime)) }}"> 
+				               <input type="hidden" name="question_number" value="{{ $result->completed_question }}"> 
+				               <input type="hidden" name="play_unique" value="{{ $result->play_unique }}"> 
+				               <input type="hidden" name="continue_quiz" value="true"> 
+				             @endif 
+						@endif
+							<input type="hidden" name="quiz_unique" value="{{ $quiz->quiz_unique }}">
+						</form>
 					</div>
 				</div>
 			</div>

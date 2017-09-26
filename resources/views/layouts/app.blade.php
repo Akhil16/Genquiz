@@ -51,7 +51,7 @@
           TOP BAR CONTENT & NOTIFICATIONS
           *********************************************************************************************************************************************************** -->
           <!--header start-->
-          <header class="header header-bg">
+          <header class="header-bg navbar-fixed-top navbar">
                   <div class="sidebar-toggle-box">
                       <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
                   </div>
@@ -158,9 +158,20 @@
           <?php $show_sidebar = Auth::check() ? true : false;?>
             @if($show_sidebar)
                 @include('partials.sidebar')
+            @else
+                <div class="container-fluid">
+                    <div class="darkblue-panel" style="margin-top: 65px ;color: White;text-align: center;">
+                        <div class="darkblue-header">
+                            <h1>QuizGen - A Quiz Platform</h1>
+                            <h2>Create &nbsp * &nbsp Play &nbsp * &nbsp Share  </h2>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
             @endif
-              <section @if(Auth::check()) id="main-content" @endif class="wrapper">
-                <div class="row mt">
+              <section @if(Auth::check()) id="main-content" @endif>
+                <div class="row ml mr">
+                    <h1>Quizzes : <hr></h1>
                         @yield('content')
                 </div><!--/ row -->
               </section><! --/wrapper -->
