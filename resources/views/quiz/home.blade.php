@@ -40,38 +40,41 @@
 @endsection
 
 @section('content')
-	<div class="container">
+	<div class="container-fluid">
 		<div id="quiz-well">
-			<div class="well">
+			<div class="brick">
 				<div class="row">
-					<div class="col-md-2 col-md-offset-1 col-sm-12 col-xs-12">
-						<img class="img-thumbnail" src="{{ URL::asset('uploads/quizcover/' . $quiz->quiz_cover) }}" alt="{{ ucwords($quiz->title) . ',' . ucwords($quiz->description) }}"  style="height: 180px; width: 120px;">
-					</div>
-					<div  class="col-md-9 col-sm-12 col-xs-12">
-						<div class="row">
-							<div class="col-md-2 col-md-offset-1 col-sm-12 col-xs-12">
-								<strong>Title</strong>
+					<div class="col-md-2 col-md-offset-1 col-sm-6 col-xs-6">
+								<img class="img-thumbnail" src="{{ URL::asset('uploads/quizcover/' . $quiz->quiz_cover) }}" alt="{{ ucwords($quiz->title) . ',' . ucwords($quiz->description) }}"  style="height: 180px; width: 120px;
+								border: 5px solid #666; box-shadow: 0 0 15px #666;">
 							</div>
-							<div class="col-md-9 col-sm-12 col-xs-12">
-								{{ ucwords($quiz->title) }}
-							</div>
+							<div  class="col-md-9 col-sm-6 col-xs-6">
+								<div class="row">
+									<div class="col-md-2 col-md-offset-1 col-sm-12 col-xs-12">
+										<strong>Title</strong>
+									</div>
+									<div class="col-md-9 col-sm-12 col-xs-12">
+										{{ ucwords($quiz->title) }}
+									</div>
+									<div class="col-xs-12">&nbsp;</div>
+								</div>
+								<div class="row">
+									<div class="col-md-2 col-md-offset-1  col-sm-12 col-xs-12">
+										<strong>Description</strong>
+									</div>
+									<div class="col-md-9  col-sm-12 col-xs-12" style="text-overflow:ellipsis;overflow:hidden;height: 70px;">
+										{{ $quiz->description }}
+									</div>
 							<div class="col-xs-12">&nbsp;</div>
 						</div>
 						<div class="row">
-							<div class="col-md-2 col-md-offset-1  col-sm-12 col-xs-12">
-								<strong>Description</strong>
+							<div class="col-md-11 col-md-offset-1 col-xs-12">
+								@if(sizeof($result) > 0) 
+					              <button class="btn btn-danger btn-block"  id="start-quiz-btn">Continue Quiz</button> 
+					            @else 
+					              <button class="btn btn-primary btn-block"  id="start-quiz-btn">Start Quiz</button> 
+					            @endif 
 							</div>
-							<div class="col-md-9  col-sm-12 col-xs-12">
-								{{ $quiz->description }}
-							</div>
-							<div class="col-xs-12">&nbsp;</div>
-						</div>
-						<div class="row">
-							@if(sizeof($result) > 0) 
-				              <button class="btn btn-danger col-md-10 col-md-offset-1 col-sm-12 col-xs-12"  id="start-quiz-btn">Continue Quiz</button> 
-				            @else 
-				              <button class="btn btn-primary col-md-10 col-md-offset-1 col-sm-12 col-xs-12"  id="start-quiz-btn">Start Quiz</button> 
-				            @endif 
 							<form id="start-quiz-form" method="post">
 							@if(Auth::check())
 								<input type="hidden" name="player_user_unique" value="{{ Auth::user()->user_unique }}">
