@@ -103,7 +103,14 @@ $(document).ready(function(){
 	});
 
 	$('#options-list').on('blur' , '.option-input' , function(){
+
 		validateOptions();
+
+	}).on('keyup' , '.options-list-row' , function(e){
+
+		if(e.keyCode == 13){
+			$('#add-option-btn').click();
+		}
 	});
 
 });

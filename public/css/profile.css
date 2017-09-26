@@ -15,8 +15,14 @@ body {
     font-family: 'Ruda', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
-    font-size:13px;
+    font-size:18px;
 }
+
+.hr-red {
+width: 80%;
+border-top: 2px solid rgb(228, 79, 79);
+}
+
 
 .padding_25{
     padding: 25px;
@@ -34,6 +40,10 @@ body {
     transition: all 0.5s ease-in-out;
     box-shadow: 5px 5px 10px 0px #ccc;
 
+}
+
+.shadow{
+    box-shadow: 0 0 10px 0px #666;
 }
 
 ul li {
@@ -107,33 +117,43 @@ a, a:hover, a:focus {
 }
 /*Theme Buttons*/
 
-.btn-custom-one {
-background-color: #hhh;
-color: #fff;
-
-.btn-block{
-    margin: auto;
+.button-custom {
+border-radius: 0px;
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+-webkit-transition: all 0.5s ease-in-out;
+-moz-transition: all 0.5s ease-in-out;
+-o-transition: all 0.5s ease-in-out;
+transition: all 0.5s ease-in-out;
+margin: 25px 5px 5px 0px;
+margin: 5px;
 }
-}
 
-.btn-custom-one:hover {
+.btn-custom-red {
 background-color: rgba(245, 8, 8, 0.81);
-border: 2px solid rgba(245, 8, 8, 0.81);
-text-decoration: none;
 color: #fff;
 }
 
-.btn-custom-two {
-color: #fff;
-background-color: rgba(245, 8, 8, 0.81);
-border: 2px solid rgba(245, 8, 8, 0.81);
+
+.btn-custom-red:hover {
+background-color: #fff;
+border: 2px solid red;
+text-decoration: none;
+color: rgba(245, 8, 8, 0.81);
 }
 
-.btn-custom-two:hover {
-border: 2px solid rgba(245, 8, 8, 0.81);
-text-decoration: none;
+.btn-custom-blue {
 color: #fff;
-background-color: #hhh;
+background-color: #428bca;
+border: 2px solid #428bca;
+
+}
+
+.btn-custom-blue:hover {
+border: 2px solid #428bca;
+text-decoration: none;
+color: #428bca;
+background-color: #fff;
 }
 
 .btn-block{
@@ -383,8 +403,12 @@ ul.sidebar-menu li a.active i {
 }
 
 /* MAIN CONTENT CONFIGURATION */
-
-
+@media(min-width: 768px){
+    #main-content { 
+        padding-left: 225px; 
+    } 
+}
+.navbar,
 .header, .footer {
     min-height: 60px;
     padding: 0 15px;
@@ -739,11 +763,11 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .sidebar-closed #main-content {
-    margin-left: 0px;
+    padding-left: 15px;
 }
 
 .sidebar-closed #sidebar {
-    margin-left: -180px;
+    padding-left: -210px;
 }
 
 
@@ -970,12 +994,10 @@ PANELS CONFIGURATIONS
 /*Panel Size*/
 
 .pn {
-	height: 250px;
+	height: 200px;
 	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
-}
-
-.pn:hover {
-	box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
+    padding:1%;
+	box-shadow: 0px 0px 10px 10px #666;
 	
 }
 

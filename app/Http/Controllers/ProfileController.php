@@ -18,7 +18,10 @@ class ProfileController extends Controller
 
     public function home(){
     	
-    	return view('profile.home');
+    	$quizzes = Quiz::where('num_ques' , '>' , 0)
+                    ->paginate(20);
+
+        return view('profile.home' , compact('quizzes'));
     }
 
     public function addQuiz(){
@@ -30,7 +33,7 @@ class ProfileController extends Controller
 
     	$validation = array(
             'title' => 'required|min:3|max:40|unique:quizzes',
-            'description' => 'required',
+            'description' => 'required|max:160',
             'quiz_cover' => 'mimes:jpeg,bmp,png,jpg'
         );
 
@@ -60,7 +63,7 @@ class ProfileController extends Controller
             }
             $quiz->save();
 
-            return back()->with('message', 'Quizzz added successfully..');
+            return redirect('profile/add-question/' . $quiz->quiz_unique);
         }
     }
 
@@ -78,13 +81,13 @@ class ProfileController extends Controller
         if($request->title && strtolower($request->old_title) == strtolower($request->title)) {
             $validation = array(
                 'title' => 'required|min:3|max:40',
-                'description' => 'required',
+                'description' => 'required|max:160',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         } else {
             $validation = array(
                 'title' => 'required|min:3|max:40|unique:quizzes',
-                'description' => 'required',
+                'description' => 'required|max:160',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         }

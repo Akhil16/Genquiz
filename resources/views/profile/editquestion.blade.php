@@ -9,7 +9,7 @@
 
 @section('content')
 
-	<div class="container">
+	<div class="container-fluid">
 		<h1 class="text-center">Quiz Title : {{ $quiz->title }}</h1>
 			
 		<div class="well">
