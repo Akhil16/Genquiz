@@ -21,7 +21,7 @@
 						    	<td scope="row" class="col-md-1">{{ $count++ }}</td>
 						    	<td class="col-md-3">{{ ucwords($pq->quiz->title) }}</td>
 						      	<td class="col-md-4"><img class="img-thumbnail" src="{{ URL::asset('uploads/quizcover/' . $pq->quiz->quiz_cover) }}" alt="{{ ucwords($pq->quiz->title) . ',' . ucwords($pq->quiz->description) }}"  style="height: 180px; width: 120px;"></td>
-						      	<td class="col-md-2">{{ $pq->score }}</td>
+						      	<td class="col-md-2">{{ $pq->score }}%</td>
 						      	<td class="col-md-2"><a class="btn btn-warning" href="{{ url('quiz/' . $pq->quiz->quiz_slug) }}">Play</a></td>
 						    </tr>
 						@endforeach
