@@ -9,7 +9,8 @@
 	</style>
 @endsection
 @section('content')
-	<div class="container-fluid">                      
+	<div class="container-fluid"> 
+		<h1>Quizzes : <hr></h1>                     
       <div class="row">
       <!-- SERVER STATUS PANELS -->
         @if(sizeof($quizzes) > 0)

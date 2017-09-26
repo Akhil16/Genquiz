@@ -160,7 +160,7 @@
                 @include('partials.sidebar')
             @else
                 <div class="container-fluid">
-                    <div class="darkblue-panel pn" style="margin-top: 65px ;color: White;">
+                    <div class="darkblue-panel pn" style="margin-top: 60px ;color: White;">
                         <div class="darkblue-header">
                             <h1>QuizGen - A Quiz Platform</h1>
                             <h2>Create &nbsp * &nbsp Play &nbsp * &nbsp Share  </h2>
@@ -170,7 +170,6 @@
                 </div>
             @endif
               <section @if(Auth::check()) id="main-content" @endif class="padding_25">
-                    <h1>Quizzes : <hr></h1>
                         @yield('content')
               </section><! --/wrapper -->
         <!-- /MAIN CONTENT -->
