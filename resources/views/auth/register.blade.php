@@ -5,6 +5,11 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3 ">
            <div class="shadow padding_25">
+                @if(session()->has('message'))
+                    <div class="alert alert-success text-center">
+                        {{ session()->get('message') }}
+                    </div>
+                @endif
                 <h1 class="centered"> Register</h1>
                 <hr class="hr-red">
                 <div class="panel-body">
@@ -19,7 +24,7 @@
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        {{ $errors->first('name') }}
                                     </span>
                                 @endif
                             </div>
@@ -33,7 +38,7 @@
 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
+                                        {{ $errors->first('username') }}
                                     </span>
                                 @endif
                             </div>
@@ -47,7 +52,7 @@
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        {{ $errors->first('email') }}
                                     </span>
                                 @endif
                             </div>
@@ -61,7 +66,7 @@
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        {{ $errors->first('password') }}
                                     </span>
                                 @endif
                             </div>

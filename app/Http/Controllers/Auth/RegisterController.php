@@ -70,7 +70,7 @@ class RegisterController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
 
-            return back()->with('message' , "You're registered successfully");
+            return back()->with('message' , "Registration Successfull");
         }
 
 
