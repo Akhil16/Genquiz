@@ -133,7 +133,7 @@ class ProfileController extends Controller
     public function showCreatedQuiz(){
 
         $quiz = Quiz::where('user_unique' , '=' , Auth::user()->user_unique)
-                ->select(['title' , 'description' , 'num_ques' , 'quiz_unique'])
+                ->select(['title' , 'description' , 'num_ques' , 'quiz_unique' , 'quiz_slug'])
                 ->paginate(20);
 
         return view('profile.showcreatedquiz' , compact('quiz'));
@@ -148,5 +148,38 @@ class ProfileController extends Controller
                         ->paginate(40);
         
         return view('profile.showplayedquiz' , compact('playedquiz'));
+    }
+
+    public function showQuizResult($quiz_slug , Request $request){
+
+        $quiz = Quiz::where('quiz_slug' , '=' , $quiz_slug)
+                    ->firstOrFail();
+
+        $search = $request->search;
+        if($search !== null) {
+            $results = QuizResult::where('player_user_unique' , '!=' , null)
+                        ->join('users' , 'users.user_unique' , '=' , 'quiz_results.player_user_unique')
+                        ->where('quiz_results.quiz_unique' , '=' , $quiz->quiz_unique)
+                        ->where('quiz_results.status' , '=' , 1)
+                        ->select(['users.*' , 'score' , 'player_user_unique' , 'quiz_results.created_at'])
+                        ->where(function($query) use ($search){
+                                $query->where("name", "LIKE", "%" . $search . "%")
+                                ->orWhere("username", "LIKE", "%". $search ."%")
+                                ->orWhere("email", "LIKE", "%". $search ."%");
+                        })
+                        ->orderBy('quiz_results.created_at' , 'desc')
+                        ->paginate(40);
+        } else {
+
+            $results = QuizResult::where('player_user_unique' , '!=' , null)
+                        ->join('users' , 'users.user_unique' , '=' , 'quiz_results.player_user_unique')
+                        ->where('quiz_results.quiz_unique' , '=' , $quiz->quiz_unique)
+                        ->where('quiz_results.status' , '=' , 1)
+                        ->select(['users.*' , 'score' , 'player_user_unique' , 'quiz_results.created_at'])
+                        ->orderBy('quiz_results.created_at' , 'desc')
+                        ->paginate(40);
+        }
+
+        return view('profile.createdquizresult' , compact('results' , 'quiz' , 'search'));
     }
 }

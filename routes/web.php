@@ -45,6 +45,9 @@ Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
    Route::post('/update-question', 'QuestionController@updateQuestion');
    Route::get('/quizzes', 'ProfileController@showCreatedQuiz');
    Route::get('/played-quiz', 'ProfileController@showPlayedQuiz');
+
+   //Show All Results for a Quiz
+   Route::get('result/quiz/{quiz_slug}' , 'ProfileController@showQuizResult');
    
 });
 
@@ -52,5 +55,5 @@ Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
 Route::get('quiz/{quiz_slug}' , 'QuizController@home');
 Route::post('quiz/play/{quiz_slug}' , 'QuizController@playQuiz');
 
-//Show Quiz Results
+//Show User Quiz Results
 Route::get('result/quiz/{quiz_slug}/play/{play_unique}' , 'QuizController@showResult');

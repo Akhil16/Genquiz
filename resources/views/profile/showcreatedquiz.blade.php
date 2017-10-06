@@ -11,8 +11,9 @@
 						    <th class="col-md-2">Title</th>
 						    <th class="col-md-4">Description</th>
 						    <th class="col-md-1">No. of Questions</th>
-						    <th class="col-md-2">Edit Quiz</th>
+						    <th class="col-md-1">Edit Quiz</th>
 						    <th class="col-md-2">Add Questions</th>
+						    <th class="col-md-1">Quiz Results</th>
 					    </tr>
 					</thead>
 				  	<tbody>
@@ -23,8 +24,9 @@
 						    	<td class="col-md-2">{{ ucwords($q->title) }}</td>
 						      	<td class="col-md-4">{{ $q->description }}</td>
 						      	<td class="col-md-1">{{ $q->num_ques }}</td>
-						      	<td class="col-md-2"><a class="btn btn-warning" href="{{ url('profile/edit-quiz/' . $q->quiz_unique) }}">Edit</a></td>
+						      	<td class="col-md-1"><a class="btn btn-warning" href="{{ url('profile/edit-quiz/' . $q->quiz_unique) }}">Edit</a></td>
 						      	<td class="col-md-2"><a class="btn btn-primary" href="{{ url('profile/add-question/' . $q->quiz_unique) }}">Add</a></td>
+						      	<td class="col-md-1"><a class="btn btn-danger" href="{{ url('profile/result/quiz/' . $q->quiz_slug) }}">View</a></td>
 						    </tr>
 						@endforeach
 					</tbody>
