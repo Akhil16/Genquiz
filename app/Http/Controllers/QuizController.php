@@ -19,6 +19,7 @@ class QuizController extends Controller
     public function home($quiz_slug) {
 
         $quiz = Quiz::where('quiz_slug' , '=' , $quiz_slug)
+                ->where('num_ques' , '>' , 0)
                 ->firstOrFail();
 
         $this->quiz_time = $quiz->quiz_time * 60;
