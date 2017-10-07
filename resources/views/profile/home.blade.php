@@ -15,7 +15,7 @@
       <!-- SERVER STATUS PANELS -->
         @if(sizeof($quizzes) > 0)
 	        @foreach($quizzes as $quiz)              	              	
-				<div class="col-md-4 mb">
+				<div class="col-md-4 mb" style="margin: 5px;">
 					<div class="row bg-theme padding_25">
 						<div class="col-md-6 col-xs-6">
 							<img class="img-thumbnail img-responsive" src="{{ URL::asset('uploads/quizcover/' . $quiz->quiz_cover) }}" alt="{{ ucwords($quiz->title) . ',' . ucwords($quiz->description) }}"  style="height: 180px; width: 120px;
@@ -26,7 +26,7 @@
 								<div class="col-xs-12">
 									<strong>Title :</strong>
 								</div>
-								<div class="col-xs-12">
+								<div class="col-xs-12" style="height: 50px;">
 									{{ ucwords($quiz->title) }}
 								</div>
 								<div class="col-xs-12">&nbsp;</div>
