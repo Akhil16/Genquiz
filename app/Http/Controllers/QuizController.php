@@ -14,12 +14,14 @@ use App\QuizResult;
 
 class QuizController extends Controller
 {
-    private $quiz_time = 30*60;
+    private $quiz_time = 5*60;
 
     public function home($quiz_slug) {
 
         $quiz = Quiz::where('quiz_slug' , '=' , $quiz_slug)
                 ->firstOrFail();
+
+        $this->quiz_time = $quiz->quiz_time * 60;
 
         if(Auth::check()) {
             $result = QuizResult::where('quiz_unique' , '=' , $quiz->quiz_unique)
@@ -43,6 +45,8 @@ class QuizController extends Controller
 
         $quiz = Quiz::where('quiz_slug' , '=' , $quiz_slug)
                 ->firstOrFail();
+
+        $this->quiz_time = $quiz->quiz_time * 60;
 
         if($quiz_unique == null) {
 

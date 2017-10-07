@@ -1,8 +1,19 @@
 @extends('layouts.app')
 
+@section('style')
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+	<style type="text/css">
+		body {
+			font-family: 'Oswald', sans-serif;
+			font-size: 18px;
+			color: #000;
+		}
+	</style>
+@endsection
+
 @section('content')
 	<div class="container-fluid">
-		<div class="well">
+		<div class="bg-theme padding_25 mb">
 			@if(session()->has('message'))
 				<div class="alert alert-success">
 				    <strong>{{ session()->get('message') }}</strong>
@@ -33,6 +44,17 @@
 				    </div>
 				@endif
 
+				<div class="form-group {{ $errors->has('quiz_time') ? 'has-error' : '' }}">
+				    <label>Quiz Time (in Minutes)</label>
+				    <input type="number" name="quiz_time" class="form-control" value="{{ $quiz->quiz_time }}"  min="1" max="180">
+				</div>
+
+				@if ($errors->has('quiz_time'))
+				    <div class="alert alert-danger">
+				        <strong>{{ $errors->first('quiz_time') }}</strong>
+				    </div>
+				@endif
+
 				<div class="form-group {{ $errors->has('quiz_cover') ? 'has-error' : '' }}">
 				    <label>Quiz Cover (optional)</label>
 				    <input type="file" name="quiz_cover" class="form-control">
@@ -56,4 +78,18 @@
 			</form>
 		</div>
 	</div>
+@endsection
+
+@section('scripts')
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('form').on('submit' , function(e){
+				e.preventDefault();
+				if($('input[name=quiz_time]').val() == "") {
+					$('input[name=quiz_time]').val(5);
+				}
+				$(this).unbind('submit').submit();
+			});
+		});
+	</script>
 @endsection

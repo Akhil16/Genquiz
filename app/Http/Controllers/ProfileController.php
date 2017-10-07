@@ -34,6 +34,7 @@ class ProfileController extends Controller
     	$validation = array(
             'title' => 'required|min:3|max:40|unique:quizzes',
             'description' => 'required|max:160',
+            'quiz_time' => 'integer|min:1|max:180',
             'quiz_cover' => 'mimes:jpeg,bmp,png,jpg'
         );
 
@@ -51,6 +52,8 @@ class ProfileController extends Controller
             $quiz->title = $request->title;
             $quiz->description = $request->description;
             $quiz->quiz_slug = str_replace(" ", "-", strtolower($request->title));
+            $quiz->quiz_time = $request->quiz_time ? $request->quiz_time : 5;
+
             if($request->quiz_cover) {
                 $file = request()->file("quiz_cover");
                 $ext = $file->getClientOriginalExtension();
@@ -82,12 +85,14 @@ class ProfileController extends Controller
             $validation = array(
                 'title' => 'required|min:3|max:40',
                 'description' => 'required|max:160',
+                'quiz_time' => 'integer|min:1|max:180',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         } else {
             $validation = array(
                 'title' => 'required|min:3|max:40|unique:quizzes',
                 'description' => 'required|max:160',
+                'quiz_time' => 'integer|min:1|max:180',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         }
@@ -113,13 +118,15 @@ class ProfileController extends Controller
                     'title' => $request->title,
                     'description' => $request->description,
                     'quiz_slug' => str_replace(" ", "-", strtolower($request->title)),
+                    'quiz_time' => $request->quiz_time ? $request->quiz_time : 5,
                     'quiz_cover' => $filename_cover
                 );
             } else {
                 $quiz_arr = array(
                     'title' => $request->title,
                     'description' => $request->description,
-                    'quiz_slug' => str_replace(" ", "-", strtolower($request->title))
+                    'quiz_slug' => str_replace(" ", "-", strtolower($request->title)),
+                    'quiz_time' => $request->quiz_time ? $request->quiz_time : 5
                 );
             }
 
