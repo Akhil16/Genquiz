@@ -19,6 +19,7 @@ class ProfileController extends Controller
     public function home(){
     	
     	$quizzes = Quiz::where('num_ques' , '>' , 0)
+                    ->where('public' , '=' , 1)
                     ->paginate(20);
 
         return view('profile.home' , compact('quizzes'));
@@ -35,6 +36,7 @@ class ProfileController extends Controller
             'title' => 'required|min:3|max:40|unique:quizzes',
             'description' => 'required|max:160',
             'quiz_time' => 'integer|min:1|max:180',
+            'public' => 'integer',
             'quiz_cover' => 'mimes:jpeg,bmp,png,jpg'
         );
 
@@ -53,6 +55,7 @@ class ProfileController extends Controller
             $quiz->description = $request->description;
             $quiz->quiz_slug = str_replace(" ", "-", strtolower($request->title));
             $quiz->quiz_time = $request->quiz_time ? $request->quiz_time : 5;
+            $quiz->public = $request->public;
 
             if($request->quiz_cover) {
                 $file = request()->file("quiz_cover");
@@ -86,6 +89,7 @@ class ProfileController extends Controller
                 'title' => 'required|min:3|max:40',
                 'description' => 'required|max:160',
                 'quiz_time' => 'integer|min:1|max:180',
+                'public' => 'integer',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         } else {
@@ -93,6 +97,7 @@ class ProfileController extends Controller
                 'title' => 'required|min:3|max:40|unique:quizzes',
                 'description' => 'required|max:160',
                 'quiz_time' => 'integer|min:1|max:180',
+                'public' => 'integer',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
             );
         }
@@ -119,6 +124,7 @@ class ProfileController extends Controller
                     'description' => $request->description,
                     'quiz_slug' => str_replace(" ", "-", strtolower($request->title)),
                     'quiz_time' => $request->quiz_time ? $request->quiz_time : 5,
+                    'public' => $request->public,
                     'quiz_cover' => $filename_cover
                 );
             } else {
@@ -126,7 +132,8 @@ class ProfileController extends Controller
                     'title' => $request->title,
                     'description' => $request->description,
                     'quiz_slug' => str_replace(" ", "-", strtolower($request->title)),
-                    'quiz_time' => $request->quiz_time ? $request->quiz_time : 5
+                    'quiz_time' => $request->quiz_time ? $request->quiz_time : 5,
+                    'public' => $request->public
                 );
             }
 

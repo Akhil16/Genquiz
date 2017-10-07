@@ -38,8 +38,7 @@
 
 				<div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
 				    <label>Quiz Description</label>
-				    <textarea class="form-control" name="description">
-				    </textarea>
+				    <textarea class="form-control" name="description"></textarea>
 				</div>
 
 				@if ($errors->has('description'))
@@ -56,6 +55,20 @@
 				@if ($errors->has('quiz_time'))
 				    <div class="alert alert-danger">
 				        <strong>{{ $errors->first('quiz_time') }}</strong>
+				    </div>
+				@endif
+
+				<div class="form-group {{ $errors->has('public') ? 'has-error' : '' }}">
+				    <label>Visibility</label>
+				    <select name="public" class="form-control">
+				        <option value="1" selected>Public</option>
+				        <option value="0">Private</option>
+				    </select>
+				</div>
+
+				@if ($errors->has('public'))
+				    <div class="alert alert-danger">
+				        <strong>{{ $errors->first('public') }}</strong>
 				    </div>
 				@endif
 

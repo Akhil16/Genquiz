@@ -108,6 +108,25 @@
 			</div>
 		</div>
 	</div>
+
+	@if($quiz->public == 0 && !Auth::check())
+		<div id="privatemodal" class="modal fade" role="dialog">
+		  <div class="modal-dialog" style="padding-top: 100px;">
+
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header bg-theme04">
+		        <h4 class="modal-title text-center">Warning! Private Quiz</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>This is a private quiz. Please <a href="{{ route('login') }}" id="login-btn">Login</a> to continue.</p>
+		        
+		      </div>
+		    </div>
+
+		  </div>
+		</div>
+	@endif
 @endsection
 
 @section('scripts')
@@ -117,4 +136,24 @@
 		var result_base_url = "{{ url('result/quiz') }}" + "/"; 
 	</script>
 	<script type="text/javascript" src="{{ URL::asset('js/playquiz.min.js') }}"></script>
+	@if($quiz->public == 0 && !Auth::check())
+		<script type="text/javascript">
+			$(window).on('load',function(){
+		        $('#privatemodal').modal('show');
+		    });
+
+		    $(document).ready(function(){
+		    	$('#privatemodal').modal({
+		          backdrop: 'static',
+		          keyboard: false
+		        });
+
+		        $('#login-btn').on('click' , function() {
+		        	$(this).unbind('click').click();
+		        });
+
+		        $('#start-quiz-form').remove();
+		    });
+		</script>
+	@endif
 @endsection
