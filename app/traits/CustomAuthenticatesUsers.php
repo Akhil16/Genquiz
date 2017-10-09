@@ -17,11 +17,15 @@ trait CustomAuthenticatesUsers
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLoginForm()
+    public function showLoginForm(Request $request)
     {
         if(!session()->has('url.intended'))
         {
             session(['url.intended' => url()->previous()]);
+        }
+
+        if($request->next !== null) {
+            session(['url.intended' => $request->next]);
         }
         
         return view('auth.login');

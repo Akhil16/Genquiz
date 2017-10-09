@@ -114,7 +114,7 @@
 		        <h4 class="modal-title text-center">Warning! Private Quiz</h4>
 		      </div>
 		      <div class="modal-body">
-		        <p>This is a private quiz. Please <a href="{{ route('login') }}" id="login-btn">Login</a> to continue.</p>
+		        <p>This is a private quiz. Please <a href="{{ url('login?next=' . url()->current()) }}" id="login-btn">Login</a> to continue.</p>
 		        
 		      </div>
 		    </div>
