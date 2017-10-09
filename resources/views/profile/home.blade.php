@@ -1,13 +1,5 @@
 @extends('layouts.app')
-@section('style')
-	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-	<style type="text/css">
-		body {
-			font-family: 'Oswald', sans-serif;
-			font-size: 18px;
-		}
-	</style>
-@endsection
+
 @section('content')
 	<div class="container-fluid"> 
 		<h1>Quizzes : <hr></h1>                     
@@ -15,7 +7,7 @@
       <!-- SERVER STATUS PANELS -->
         @if(sizeof($quizzes) > 0)
 	        @foreach($quizzes as $quiz)              	              	
-				<div class="col-md-4 mb" style="margin: 5px;">
+				<div class="col-md-4 mb" style="padding: 25px;">
 					<div class="row bg-theme padding_25">
 						<div class="col-md-6 col-xs-6">
 							<img class="img-thumbnail img-responsive" src="{{ URL::asset('uploads/quizcover/' . $quiz->quiz_cover) }}" alt="{{ ucwords($quiz->title) . ',' . ucwords($quiz->description) }}"  style="height: 180px; width: 120px;

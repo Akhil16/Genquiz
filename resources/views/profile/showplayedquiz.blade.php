@@ -3,7 +3,7 @@
 @section('content')
 	<div class="container-fluid">
 		@if(sizeof($playedquiz) > 0)
-			<div class="well table-responsive">
+			<div class="brick table-responsive">
 				<table class="table table-striped">
 					<thead>
 					    <tr>

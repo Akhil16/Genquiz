@@ -11,7 +11,7 @@
 
 	<div class="container-fluid">
 		<h1 class="text-center">Quiz Title : {{ $quiz->title }}</h1>
-		<div class="col-md-12 brick">
+		<div class="col-md-12 brick table-responsive">
 			@if(isset($questions) && sizeof($questions) > 0)
 				<table class="table table-striped">
 					<thead>

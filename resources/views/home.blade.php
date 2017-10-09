@@ -4,7 +4,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-    vvvv
+    	<!-- This page is yet to be used -->
     </div>
 </div>
 @endsection

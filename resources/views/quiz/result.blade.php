@@ -12,11 +12,8 @@
 @extends('layouts.app')
 
 @section('style')
-	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 	<style type="text/css">
 		body {
-			font-family: 'Oswald', sans-serif;
-			font-size: 18px;
 			color: #000;
 		}
 	</style>

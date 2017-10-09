@@ -1,13 +1,5 @@
 @extends('layouts.app')
-@section('style')
-	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-	<style type="text/css">
-		body {
-			font-family: 'Oswald', sans-serif;
-			font-size: 16px;
-		}
-	</style>
-@endsection
+
 @section('content')
 	<div class="container-fluid">
 		

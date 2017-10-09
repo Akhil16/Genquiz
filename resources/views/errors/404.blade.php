@@ -1,7 +1,5 @@
-<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 <style type="text/css">
 	body {
-		font-family: 'Oswald', sans-serif;
 		font-size: 38px;
 		text-align: center;
 		padding: 5%;

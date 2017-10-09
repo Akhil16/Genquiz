@@ -51,9 +51,9 @@ class ProfileController extends Controller
             $quiz = new Quiz;
             $quiz->quiz_unique = $quiz->getQuizUnique();
             $quiz->user_unique = $request->user_unique;
-            $quiz->title = $request->title;
+            $quiz->title = strtolower($request->title);
             $quiz->description = $request->description;
-            $quiz->quiz_slug = str_replace(" ", "-", strtolower($request->title));
+            $quiz->quiz_slug = str_replace(" ", "-", strtolower(rtrim($request->title , "?")));
             $quiz->quiz_time = $request->quiz_time ? $request->quiz_time : 5;
             $quiz->public = $request->public;
 
@@ -120,18 +120,18 @@ class ProfileController extends Controller
                 $file->move(public_path("uploads/quizcover") , $filename_cover);
 
                 $quiz_arr = array(
-                    'title' => $request->title,
+                    'title' => strtolower($request->title),
                     'description' => $request->description,
-                    'quiz_slug' => str_replace(" ", "-", strtolower($request->title)),
+                    'quiz_slug' => str_replace(" ", "-", strtolower(rtrim($request->title , "?"))),
                     'quiz_time' => $request->quiz_time ? $request->quiz_time : 5,
                     'public' => $request->public,
                     'quiz_cover' => $filename_cover
                 );
             } else {
                 $quiz_arr = array(
-                    'title' => $request->title,
+                    'title' => strtolower($request->title),
                     'description' => $request->description,
-                    'quiz_slug' => str_replace(" ", "-", strtolower($request->title)),
+                    'quiz_slug' => str_replace(" ", "-", strtolower(rtrim($request->title , "?"))),
                     'quiz_time' => $request->quiz_time ? $request->quiz_time : 5,
                     'public' => $request->public
                 );
