@@ -11,28 +11,28 @@ MAIN SIDEBAR MENU
             <h5 class="centered">{{ Auth::user()->username}} </h5>
               
             <li class="mt">
-                <a  href="{{ url('/profile') }}">
+                <a @if(url()->current() === url('/profile')) class="active" @endif href="{{ url('/profile') }}">
                     <i class="fa fa-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
             <li class="sub-menu">
-                <a  href="{{ url('profile/add-quiz') }}" >
+                <a @if(url()->current() === url('profile/add-quiz')) class="active" @endif href="{{ url('profile/add-quiz') }}" >
                     <i class="fa fa-plus"></i>
                     <span>Add Quiz</span>
                 </a>
             </li>
 
             <li class="sub-menu">
-                <a  href="{{ url('profile/quizzes') }}" >
+                <a @if(url()->current() === url('profile/quizzes')) class="active" @endif href="{{ url('profile/quizzes') }}" >
                     <i class="fa fa-question"></i>
                     <span>Your Quizzes</span>
                 </a>
             </li>
 
             <li class="sub-menu">
-                <a  href="{{ url('profile/played-quiz') }}" >
+                <a @if(url()->current() === url('profile/played-quiz')) class="active" @endif href="{{ url('profile/played-quiz') }}" >
                     <i class="fa fa-futbol-o"></i>
                     <span>Played Quiz</span>
                 </a>
