@@ -38,6 +38,21 @@ MAIN SIDEBAR MENU
                 </a>
             </li>
 
+            @if(Auth::check() && Auth::user()->user_type == 2)
+                <li class="sub-menu">
+                    <a @if(url()->current() === url('profile/add-category')) class="active" @endif href="{{ url('profile/add-category') }}" >
+                        <i class="fa fa-th-list"></i>
+                        <span>Add Category</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a @if(url()->current() === url('profile/show-categories')) class="active" @endif href="{{ url('profile/show-categories') }}" >
+                        <i class="fa fa-bolt"></i>
+                        <span>Show Categories</span>
+                    </a>
+                </li>
+            @endif
             
         </ul>
         <!-- sidebar menu end-->

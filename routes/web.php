@@ -32,7 +32,7 @@ Route::get('login/facebook/callback','Auth\SocialAuthController@callbackFacebook
 Route::get('login/google', 'Auth\SocialAuthController@loginWithGoogle');
 Route::get('login/google/callback','Auth\SocialAuthController@callbackGoogle');
 
-Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
+Route::group(["prefix" => "profile"],function() {
 
    Route::get('/', 'ProfileController@home');
    Route::get('/add-quiz', 'ProfileController@addQuiz');
@@ -48,6 +48,13 @@ Route::group(["prefix" => "profile","middleware"=>"userrole"],function() {
 
    //Show All Results for a Quiz
    Route::get('result/quiz/{quiz_slug}' , 'ProfileController@showQuizResult');
+
+   //Add Category (For Admins)
+   Route::get('/add-category', 'CategoryController@addCategory');
+   Route::post('/save-category', 'CategoryController@saveCategory');
+   Route::get('/edit-category/{category_unique}', 'CategoryController@editCategory');
+   Route::post('/update-category', 'CategoryController@updateCategory');
+   Route::get('/show-categories', 'CategoryController@showCategory');
    
 });
 

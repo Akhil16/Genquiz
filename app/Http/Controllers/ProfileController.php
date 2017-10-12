@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Quiz;
 use App\QuizResult;
+use App\Category;
 
 class ProfileController extends Controller
 {
@@ -27,7 +28,9 @@ class ProfileController extends Controller
 
     public function addQuiz(){
 
-    	return view('profile.addquiz' , compact('quiz'));
+        $categories = Category::all();
+
+    	return view('profile.addquiz' , compact('categories'));
     }
 
     public function saveQuiz(Request $request){
@@ -35,6 +38,7 @@ class ProfileController extends Controller
     	$validation = array(
             'title' => 'required|min:3|max:40|unique:quizzes',
             'description' => 'required|max:160',
+            'category' => 'required|integer',
             'quiz_time' => 'integer|min:1|max:180',
             'public' => 'integer',
             'quiz_cover' => 'mimes:jpeg,bmp,png,jpg'
@@ -53,6 +57,7 @@ class ProfileController extends Controller
             $quiz->user_unique = $request->user_unique;
             $quiz->title = strtolower($request->title);
             $quiz->description = $request->description;
+            $quiz->category_id = $request->category;
             $quiz->quiz_slug = str_replace(" ", "-", strtolower(rtrim($request->title , "?")));
             $quiz->quiz_time = $request->quiz_time ? $request->quiz_time : 5;
             $quiz->public = $request->public;
@@ -78,7 +83,9 @@ class ProfileController extends Controller
         $quiz = Quiz::where('user_unique' , '=' , Auth::user()->user_unique)
                 ->where('quiz_unique' , '=' , $quiz_unique)->firstOrFail();
 
-        return view('profile.editquiz' , compact('quiz'));
+        $categories = Category::all();
+
+        return view('profile.editquiz' , compact('quiz' , 'categories'));
     }
 
     public function updateQuiz(Request $request){
@@ -88,6 +95,7 @@ class ProfileController extends Controller
             $validation = array(
                 'title' => 'required|min:3|max:40',
                 'description' => 'required|max:160',
+                'category' => 'required|integer',
                 'quiz_time' => 'integer|min:1|max:180',
                 'public' => 'integer',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
@@ -96,6 +104,7 @@ class ProfileController extends Controller
             $validation = array(
                 'title' => 'required|min:3|max:40|unique:quizzes',
                 'description' => 'required|max:160',
+                'category' => 'required|integer',
                 'quiz_time' => 'integer|min:1|max:180',
                 'public' => 'integer',
                 'quiz_cover' => 'mimes:jpeg,png,jpg,bmp'
@@ -122,6 +131,7 @@ class ProfileController extends Controller
                 $quiz_arr = array(
                     'title' => strtolower($request->title),
                     'description' => $request->description,
+                    'category_id' => $request->category,
                     'quiz_slug' => str_replace(" ", "-", strtolower(rtrim($request->title , "?"))),
                     'quiz_time' => $request->quiz_time ? $request->quiz_time : 5,
                     'public' => $request->public,
@@ -131,6 +141,7 @@ class ProfileController extends Controller
                 $quiz_arr = array(
                     'title' => strtolower($request->title),
                     'description' => $request->description,
+                    'category_id' => $request->category,
                     'quiz_slug' => str_replace(" ", "-", strtolower(rtrim($request->title , "?"))),
                     'quiz_time' => $request->quiz_time ? $request->quiz_time : 5,
                     'public' => $request->public

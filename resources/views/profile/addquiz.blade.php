@@ -44,6 +44,22 @@
 				    </div>
 				@endif
 
+				<div class="form-group {{ $errors->has('category') ? 'has-error' : '' }}">
+				    <label>Category</label>
+				    <select name="category" class="form-control">
+				    		<option  value="" selected>Select Category</option>
+				    	@foreach($categories as $c)
+				        	<option value="{{ $c->id }}">{{ ucwords($c->name) }}</option>
+				        @endforeach
+				    </select>
+				</div>
+
+				@if ($errors->has('category'))
+				    <div class="alert alert-danger">
+				        <strong>{{ $errors->first('category') }}</strong>
+				    </div>
+				@endif
+
 				<div class="form-group {{ $errors->has('quiz_time') ? 'has-error' : '' }}">
 				    <label>Quiz Time  (in Minutes)</label>
 				    <input type="number" name="quiz_time" class="form-control" value="5" min="1" max="180">
