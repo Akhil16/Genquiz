@@ -3,10 +3,10 @@
     $description = $quiz->description;
     $keywords = "quiz, " . $title . " " . $description;
     $author = "Genquiz";
-    $url = "http://genquiz.tk";
+    $url = url()->current();
     $site_name = "genquiz.tk";
     if($quiz->quiz_cover !== "quiz-default-cover.png") {
-    	$image_url = url('uploads/quizcover/' . $quiz->quiz_cover);
+    	$image_url = URL::asset('uploads/quizcover/' . $quiz->quiz_cover);
     }
 ?>
 @extends('layouts.app')
