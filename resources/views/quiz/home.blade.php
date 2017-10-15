@@ -6,7 +6,7 @@
     $url = "http://genquiz.tk";
     $site_name = "genquiz.tk";
     if($quiz->quiz_cover !== "quiz-default-cover.png") {
-    	$image_url = url('/images/' . $quiz->quiz_cover);
+    	$image_url = url('uploads/quizcover/' . $quiz->quiz_cover);
     }
 ?>
 @extends('layouts.app')
