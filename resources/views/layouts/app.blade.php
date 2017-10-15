@@ -6,9 +6,9 @@
         $description = isset($description) ? $description : "A platform to solve quizzes and share your created quizzes among your friend circle";
         $keywords = isset($keywords) ? $keywords : "genquiz, quiz, puzzles";
         $author = isset($author) ? $author : "Genquiz";
-        $url = isset($url) ? $url : "http//genquiz.tk";
+        $url = isset($url) ? $url : "//genquiz.tk";
         $site_name = isset($site_name) ? $site_name : "genquiz.tk";
-        $image_url = isset($image_url) ? $image_url : url('/images/Genquiz.png');
+        $image_url = isset($image_url) ? $image_url : url('//genquiz.tk/images/Genquiz.png');
     ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -155,23 +155,22 @@
                 </div>
             </header>
           <!--header end-->
-          <?php $show_sidebar = Auth::check() ? true : false;?>
-            @if($show_sidebar)
-                @include('partials.sidebar')
-            @else
-                <div class="container-fluid">
-                    <div class="darkblue-panel pn" style="margin-top: 60px ;color: White;">
-                        <div class="darkblue-header">
-                            <h1>QuizGen - A Quiz Platform</h1>
-                            <h2>Create &nbsp * &nbsp Play &nbsp * &nbsp Share  </h2>
+            @include('partials.sidebar')
+            
+            <section id="main-content" class="padding_25" style="margin-top:60px !important; ">
+                    @if(!Auth::check())
+                        <div class="container-fluid">
+                            <div class="darkblue-panel pn" style="color: White;">
+                                <div class="darkblue-header">
+                                    <h1>GenQuiz - A Quiz Platform</h1>
+                                    <h2>Create &nbsp * &nbsp Play &nbsp * &nbsp Share  </h2>
+                                </div>
+                            </div>
+                            <hr>
                         </div>
-                    </div>
-                    <hr>
-                </div>
-            @endif
-              <section @if(Auth::check()) id="main-content" @endif class="padding_25" style="margin-top:60px !important; ">
-                        @yield('content')
-              </section><! --/wrapper -->
+                    @endif
+                    @yield('content')
+            </section><! --/wrapper -->
         <!-- /MAIN CONTENT -->
     <!-- Scripts -->
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>

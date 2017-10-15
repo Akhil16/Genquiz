@@ -8,14 +8,23 @@ MAIN SIDEBAR MENU
         <ul class="sidebar-menu" id="nav-accordion">
         
             <p class="centered"><a href="{{ url('/profile') }}"><img src="{{ URL::asset('images/user.png') }}"  class="img-circle" width="60"></a></p>
-            <h5 class="centered">{{ Auth::user()->username}} </h5>
-              
-            <li class="mt">
-                <a @if(url()->current() === url('/profile')) class="active" @endif href="{{ url('/profile') }}">
-                    <i class="fa fa-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
+            <h5 class="centered">{{ Auth::check() ? Auth::user()->username : "User" }} </h5>
+            
+            @if(Auth::check())
+                <li class="mt">
+                    <a @if(url()->current() === url('/profile')) class="active" @endif href="{{ url('/profile') }}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+            @else
+                <li class="mt">
+                    <a @if(url()->current() === url('/')) class="active" @endif href="{{ url('/') }}">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+            @endif
 
             <li class="sub-menu">
                 <a @if(url()->current() === url('profile/add-quiz')) class="active" @endif href="{{ url('profile/add-quiz') }}" >
