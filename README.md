@@ -56,3 +56,5 @@ To use login with facebook and google, add their app id and secret to .env file
 ## Authors
 
 * **Aman Gupta** - [Amang8662](https://github.com/amang8662)
+
+### Online Demo at [http://genquiz.tk](http://genquiz.tk)
